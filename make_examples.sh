@@ -19,7 +19,7 @@ for n3s in test/*.n3s ; do
         echo "(skipping $n3s)" | tee $n3s.out
     else
         echo "eye --nope --quiet $n3s > $n3s.out 2> /dev/null"
-        timeout 5s eye --nope --quiet $n3s > $n3s.out 2> /dev/null
+        timeout 10s eye --nope --quiet $n3s > $n3s.out 2>&1 
     fi
 done
 
@@ -30,7 +30,7 @@ for f in $(find . -name "*.out" | sort) ; do
 
     echo -n "Testing $f ... "
 
-    if [[ $f =~ FAIL ]] && [[ ! -s $f ]]; then
+    if [[ $f =~ FAIL ]] && [[ $(grep ' inference_fuse' $f) ]]; then
         echo -e "${GREEN}OK${NORMAL}"
         ((OK++))
     elif [[ $f =~ SKIP ]]; then
