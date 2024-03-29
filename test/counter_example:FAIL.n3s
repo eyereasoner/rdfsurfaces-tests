@@ -1,0 +1,31 @@
+@prefix : <urn:example:> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix math: <http://www.w3.org/2000/10/swap/math#> .
+
+# Someone claims that one can't count to more than 100
+# Find a counter example
+
+# Start with one
+:Test rdf:value 0. 
+
+# This is a counter example 
+(_:X _:Y) log:nand {
+    _:X rdf:value _:Y .
+    _:Y math:greaterThan 100.
+
+    () log:nand false .
+} . 
+
+(_:G _:X _:Y) log:nand {
+    _:G rdf:value _:X .
+
+    ( _:X 1 ) math:sum _:Y .
+    
+    () log:nand  {
+        _:G rdf:value _:Y.
+    } .
+} .
+
+{ ?S rdf:value ?O } log:query { ?S rdf:value ?O } .

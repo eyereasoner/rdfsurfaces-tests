@@ -1,0 +1,20 @@
+@prefix : <urn:example.org:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+# \exists x : x a Cat
+(_:x) log:nand {
+    () log:nand {
+        _:x a :Cat .
+    }
+} .
+
+# \forall x : not(x a Cat)
+(_:x) log:nand {
+    () log:nand {
+        () log:nand {
+            _:x a :Cat .
+        } .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

@@ -1,0 +1,38 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+:Ghent a :City .
+
+# There is an _:S that is a city implies _:S a HumanCommunity AND _:S a :Settlement
+( ( _:S ) { _:S a :City } ) :implies { _:S a :HumanCommunity } , { _:S a :Settlement } .
+
+{
+    ?S a ?O .
+} 
+log:query
+{
+    ?S a ?O .
+} .
+
+# START BLOGIC Stuff------------------------------------------------------------
+# Compile the syntactic sugar for implies into blogic
+( _:X _:G1 _:G2 _:G3 ) log:nand {
+    ( _:X _:G1 ) :implies _:G2 .
+    ( _:G1 { ( ) log:nand _:G2 } ) log:conjunction _:G3 .
+
+    ( ) log:nand {
+        _:X log:nand _:G3 .
+    }
+} .
+# END BLOGIC Stuff--------------------------------------------------------------
+
+# Test
+( ) log:nand {
+    :Ghent a :HumanCommunity .
+    :Ghent a :Settlement .
+    ( ) log:nand {
+        :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

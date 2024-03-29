@@ -1,0 +1,45 @@
+@prefix : <urn:example:> .
+@prefix t: <urn:logic:demo:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Alice :is :Breathing .
+
+:Bob :is :Alive .
+
+# This should fail
+#() log:nand {
+#    :Bob :is :Breathing .
+#} .
+
+# A biconditions P <-> Q is true when P if and only if Q
+# This is same as
+#    ( P -> Q ) AND ( Q -> P )
+(_:S) log:nand {
+
+    _:S :is :Breathing .
+
+    () log:nand {
+        _:S :is :Alive .
+    } .
+}.
+
+(_:S) log:nand {
+
+    _:S :is :Alive .
+
+    () log:nand {
+        _:S :is :Breathing .
+    } .
+}.
+
+# Test
+() log:nand {
+    :Alice :is :Alive .
+    :Bob   :is :Breathing .
+    () log:nand {
+          :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

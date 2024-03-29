@@ -1,0 +1,27 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+() log:nand {
+    :A a :B .
+    () log:nand {
+        :C a :D .
+    } .
+} .
+
+() log:nand {
+    :A a :B .
+    :C a :D .
+} .
+
+(_:S _:O) log:nand {
+    () log:nand {
+        _:S a _:O .
+    } .
+
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+# Test
+{ :test :is true } log:query { :test :is true } .

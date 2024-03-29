@@ -1,0 +1,57 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+# Erasure test
+
+# ~(B . ~(C . ~(B . D))) = B -> C . ~D
+# Make a B
+:B a :B2 .
+() log:nand {
+    :B a :B2 .
+
+    () log:nand {
+        # C
+        :C a :C2 .
+
+        () log:nand {
+            :B a :B2 .
+            :D a :D2 .
+        } .
+    } .
+} .
+
+# Verbose
+{
+    ?S a ?O .
+} 
+log:query 
+{
+    ?S a ?O .
+} .
+
+{
+    () log:nand {
+        ?S a ?O .
+    } .
+} 
+log:query
+{
+    () log:nand {
+        ?S a ?O .
+    } .
+} .
+
+# Test
+() log:nand {
+    :C a :C2 .
+
+    () log:nand {
+        :D a :D2 .
+    } .
+
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

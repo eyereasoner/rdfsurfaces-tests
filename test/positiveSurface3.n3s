@@ -1,0 +1,92 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix list: <http://www.w3.org/2000/10/swap/list#> .
+
+# Alice is on the implicit postive surface
+:Alice :knows :Bob.
+
+# Bob is on a new positive surface
+#   .. but when reasoning about surfaces this
+#   should be interpreted as a conjunction 
+#   with Alice's statement.
+() log:nand {
+  () log:nand {
+    :Bob :knows :Charly .
+  } .
+} .
+
+# If X knows Y, then X,Y is knowable
+(_:S _:O) log:nand {
+
+    # We add the premise on a postive
+    # surface .. it is not strictly needed 
+    # because the implicit surface is positive
+    #   () log:nand {  <-- this part here is implicit positive --> }
+    # This also means that
+    #   () log:nand {}
+    # is a contradiction because a positive empty surface {} is a 'true'
+    () log:nand {
+      () log:nand {
+        _:S :knows _:O .
+      } .
+    } .
+
+    () log:nand {
+        _:S :isKnowable true .
+        _:O :isKnowable true .
+    } .
+} .
+
+# Here we implement a broken rule, we add graffiti
+# on the positive surface to block the scope of the variables
+(_:S _:O) log:nand {
+    # Write for _:S and _:O new grafiti ..
+    (_:S _:O) log:nand {
+       () log:nand {
+        _:S :knows _:O .
+       } .
+    } .
+    () log:nand {
+        _:S :hates _:O .
+    } .
+} .
+
+{
+    ?S :isKnowable true .
+} 
+log:query
+{
+    ?S :isKnowable true .
+} .
+
+# Test 
+# See the noGod example why this works...
+() log:nand {
+  () log:nand {
+    [] :hates [] .
+
+    (_:Counter _:S _:O) log:nand {
+        :Alice :isKnowable true .
+        :Bob :isKnowable true .
+        :Charly :isKnowable true .
+
+        # There shouldn't be any extra hates
+        _:Counter a log:GraphCounter .
+        { _:S :hates _:O } _:Counter 1.
+
+        () log:nand {
+            :test :is true .
+        } .
+    } .
+  } .
+} .
+
+# Add a counter
+:cardinalCount a log:GraphCounter .
+(_:Graph _:Count _:List _:Scope) log:nand {
+    () log:nand <<_:Graph :cardinalCount _:Count>> .
+    ( () _:Graph _:List ) log:collectAllIn _:Scope .
+    _:List list:length _:Count .
+} .
+
+{ :test :is true } log:query { :test :is true } .

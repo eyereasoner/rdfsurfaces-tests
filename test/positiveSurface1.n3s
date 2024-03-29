@@ -1,0 +1,41 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+_:x a :PastaEater .
+
+# The negative of a negative surface is the implicit positive surface.
+# We can write grafiti on this surface and just add more triples on 
+# the positive surface.
+(_:x) log:nand {
+    () log:nand {
+        _:x a :RiceEater .
+
+        (_:x _:y) log:nand {
+            _:x a :PastaEater . 
+            _:y a :RiceEater .
+
+            (_:z) log:nand {
+                _:z a :RisottoEater .
+            } .
+        } .
+    } .
+} .  
+
+{
+    ?S a ?O .
+} 
+log:query
+{
+    ?S a ?O .
+} .
+
+# Test
+
+(_:x) log:nand {
+    _:x a :RisottoEater .
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

@@ -1,0 +1,84 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+# A OR B
+#  |= ~( ~A OR ~B )
+() log:nand {
+    () log:nand {
+        :A a :Fish .
+    } .
+    () log:nand {
+        :B a :Mussle .
+    } .
+} .
+
+# ( A OR B ) -> ( C OR D )
+#  |= ~( (A OR B) AND ~(C OR D))
+#  |= ~( ~(~A AND ~B) AND ~( ~( ~C AND ~D) )
+#  |= ~( ~(~A AND ~B) AND (~C AND ~D) )
+() log:nand {
+    # This is the (A OR B) part.
+    () log:nand {
+        () log:nand {
+            :A a :Fish .
+        } .
+        () log:nand {
+            :B a :Mussle .
+        } . 
+    } .
+    # This is the implied ( C OR D )
+    () log:nand {
+      () log:nand {
+        () log:nand {
+            :C a :Freeze .
+        } .
+        () log:nand {
+            :D a :Thaw .
+        } . 
+      } .
+    } .
+} .
+
+# Test
+# ( C OR D ) -> (test is true)
+#  |= ~( (C OR D) AND ~(test is true) )
+#  |= ~( ~( ~C AND ~D) AND ~(test is true) )
+() log:nand {
+    () log:nand {
+        () log:nand {
+            :C a :Freeze .
+        } .
+        () log:nand {
+            :D a :Thaw .
+        } . 
+    } . 
+    # OR 
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .
+
+# Debug
+(_:X1 _:X2 _:X3 _:X4) log:nand {
+    () log:nand {
+        () log:nand {
+            _:X1 a _:X2 .
+        } .
+        () log:nand {
+            _:X3 a _:X4 .
+        } . 
+    } .  
+    () log:nand {
+        { _:X1 a _:X2 } :OR { _:X3 a _:X4 } .
+    } .
+} .
+
+{
+    ?G1 :OR ?G2 .
+} 
+log:query
+{
+    ?G1 :OR ?G2 .
+} .

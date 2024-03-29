@@ -1,0 +1,39 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+# Premises
+
+# p -> q 
+
+() log:nand {
+    :p a :verb .
+    () log:nand {
+        :q a :verb .
+    } .
+} .
+
+# ~q v r
+() log:nand {
+    :q a :verb .
+    () log:nand {
+        :r a :verb . 
+    } .
+} .
+
+# Consequent
+
+# p -> r 
+() log:nand {
+    () log:nand {
+        :p a :verb .
+        () log:nand {
+            :r a :verb . 
+        } . 
+    } .
+    () log:nand {
+        :test :is true . 
+    } .
+} .
+
+# query
+{ :test :is true } log:query { :test :is true } .

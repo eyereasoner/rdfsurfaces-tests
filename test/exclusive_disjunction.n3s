@@ -1,0 +1,100 @@
+@prefix : <urn:example:> .
+@prefix t: <urn:logic:demo:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Alice :is :Racing .
+:Bob :is :Racing .
+
+# Make Bob the loser
+:Alice a :Winner .
+
+# Make Bob a winner
+#() log:nand {
+#    :Alice a :Winner .
+#} .
+
+# This should fail: we can have only one winner
+#:Bob a :Winner .
+
+# An exclusive disjunction P <-/-> Q means that P is true or Q but not both
+# This is same as
+#     P <-> ~Q
+# And is the same as
+#     ( P -> ~Q ) AND (~Q -> P) AND ( ~P -> Q ) AND ( Q -> ~ P )
+
+# [1]
+() log:nand {
+
+    :Alice a :Winner .
+
+    () log:nand {
+        () log:nand {
+            :Bob a :Winner .
+        } .
+    } .
+}.
+
+# [2]
+() log:nand {
+    () log:nand {
+        :Bob a :Winner .
+    } .
+
+    () log:nand {
+        :Alice a :Winner .
+    } .
+}.
+
+# [3] 
+# Remark [2] and [3] are the same only with the order switched. One
+# could keep only one of these rules
+() log:nand {
+    () log:nand {
+        :Alice a :Winner .
+    } .
+
+    () log:nand {
+        :Bob a :Winner .
+    } .
+}.
+
+# [4]
+() log:nand {
+    :Bob a :Winner .
+
+    () log:nand {
+        () log:nand {
+            :Alice a :Winner .
+        } .
+    } .
+}.
+
+# Test 
+() log:nand {
+    :Alice a :Winner ;
+        :is :Racing .
+    :Bob :is :Racing .
+
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+{
+    ?S a ?O.
+} 
+log:query
+{
+    ?S a ?O.
+} .
+
+{
+    ?S :is ?O.
+} 
+log:query
+{
+    ?S :is ?O .
+} .
+
+{ :test :is true } log:query { :test :is true } .

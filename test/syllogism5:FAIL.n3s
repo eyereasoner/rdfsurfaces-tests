@@ -1,0 +1,16 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+:Alice a :Person , :Cyclist .
+() log:nand {
+    :Alice a :IceSkater .
+} .
+
+# All persons are cyclist and iceskater
+(_:X) log:nand {
+    _:X a :Person .
+
+    () log:nand {
+        _:X a :Cyclist , :IceSkater .
+    } .
+} .

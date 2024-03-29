@@ -1,0 +1,50 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix list: <http://www.w3.org/2000/10/swap/list#> .
+
+# On the positive surface we introduce a new God. Then we count how 
+# many Gods there are on the implicit surface and if there is just one, 
+# we know we didn't have a God on the original surface.
+(_:x) log:nand {
+  () log:nand {
+    _:x a :God .
+
+    (_:y _:Counter) log:nand { 
+
+        # See: cardinality.n3
+        _:Counter a log:GraphCounter .
+        { _:y a :God } _:Counter 1.
+
+        () log:nand {
+            <> a :MissingGodTest .
+        } .
+    } .
+  } .
+} .
+
+# This is a local implementation of a log:GraphCounter
+:cardinalCount a log:GraphCounter .
+
+(_:Graph _:Count _:List _:Scope) log:nand {
+    () log:nand <<_:Graph :cardinalCount _:Count>> .
+    ( () _:Graph _:List ) log:collectAllIn _:Scope .
+    _:List list:length _:Count .
+} .
+
+{
+    ?S a ?O .
+} 
+log:query
+{
+    ?S a ?O .
+} . 
+
+# Test 
+(_:x) log:nand {
+    _:x a :MissingGodTest .
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

@@ -1,0 +1,124 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+############################################## 
+# Test 1
+
+# Bob 
+:Bob :eats :Quiche.
+
+# This should fail
+#:Bob a :RealProgrammer .
+
+#
+##############################################
+
+############################################## 
+# Test 2
+
+# Alice doesn't eat Quiche
+() log:nand {
+    :Alice :eats :Quiche .
+} .
+
+# This should fail
+#:Alice :eats :Quiche .
+
+#
+##############################################
+
+############################################## 
+# Test 3
+
+() log:nand {
+    :Charly a :RealProgrammer .
+} .
+
+#
+##############################################
+
+############################################## 
+# Test 4
+
+() log:nand {
+    () log:nand {
+        :Dave :eats :Quiche .
+    } .
+} .
+
+() log:nand {
+    () log:nand {
+        () log:nand {
+            :Estelle a :RealProgrammer.
+        } .
+    } .
+} .
+
+#
+##############################################
+
+# An exclusive disjunction P <-/-> Q means that P is true or Q but not both
+# This is same as
+#     P <-> ~Q
+# and is the same as
+#     ( P -> ~Q ) AND (~Q -> P) AND ( ~P -> Q ) AND ( Q -> ~ P )
+# P = real programmer
+# Q = eat quiche
+(_:S) log:nand {
+
+    _:S a :RealProgrammer .
+
+    () log:nand {
+    
+        () log:nand {
+            _:S :eats :Quiche  .
+        } .
+    } .
+}.
+
+(_:S) log:nand {
+
+    () log:nand {
+        _:S a :RealProgrammer .
+    } .
+
+    () log:nand {
+        _:S :eats :Quiche .
+    } .
+}.
+
+(_:S) log:nand {
+
+    _:S :eats :Quiche .
+ 
+    () log:nand {
+        () log:nand {
+            _:S a :RealProgrammer .
+        } .
+    } .
+}.
+
+# Q (eat quiche) -> P ( you are a programmer)
+#
+# Q -> P = ~ ( Q AND ~P )
+(_:S) log:nand {
+    _:S :eats :Quiche .
+
+    () log:nand {
+        _:S a :Programmer .
+    } .
+} .
+
+# Test
+() log:nand {
+    :Alice a :RealProgrammer .
+    :Bob a :Programmer .
+    :Charly a :Programmer .
+    :Dave a :Programmer .
+    :Estelle a :Programmer .
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

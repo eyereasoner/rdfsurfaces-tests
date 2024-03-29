@@ -1,0 +1,86 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+:Alice :likes :Bob .
+
+# Choose one : test case A
+() log:nand {
+    :Alice :knows :Bob .
+} .
+
+# Choose one : test case B
+#() log:nand {
+#    :Bob :knows :Alice .
+#} .
+
+###################################
+# Implementation                  #
+###################################
+
+# C -> A OR B
+#
+#    C : Alice likes Bob
+#    A : Alice knows Bob
+#    B : Bob knows Alice
+#
+# This is the normal way to write it
+#() log:nand {
+#    :Alice :likes :Bob .
+#
+#    () log:nand {
+#        :Alice :knows :Bob .
+#    } .
+#
+#    () log:nand {
+#        :Bob :knows :Alice .
+#    } .
+#} .
+
+# This is the funky way to write it
+# because 
+#   C -> A OR B
+# is equal to
+#   (A -> B) -> (C -> B)
+#
+# One way to write this is 
+#
+#  NOT( C . NOT(B) . NOT( A . NOT(B) ) )
+#
+() log:nand {
+    :Alice :likes :Bob .
+
+    () log:nand {
+        :Bob :knows :Alice .
+    } .
+
+    ( ) log:nand {
+        
+        :Alice :knows :Bob .
+
+        () log:nand {
+            :Bob :knows :Alice .
+        } .
+    } .  
+} .
+
+# Query and test 
+
+{
+    ?S :knows ?O .
+} 
+log:query
+{
+    ?S :knows ?O .
+}.
+
+# Test 
+
+( ) log:nand {
+    :Bob :knows :Alice .
+
+    ( ) log:nand {
+        :test :is true .
+    } . 
+} .
+
+{ :test :is true } log:query { :test :is true } .

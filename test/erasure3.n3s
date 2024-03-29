@@ -1,0 +1,40 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+# Conjunctive Erasure test
+
+# ~(A . B . ~(C . ~(A . B . D))) = A . B -> C . ~D
+# Make a A and a B
+:A a :A2 .
+:B a :B2 .
+
+() log:nand {
+    :A a :A2 .
+    :B a :B2 .
+
+    () log:nand {
+        # C
+        :C a :C2 .
+
+        () log:nand {
+            :A a :A2 .
+            :B a :B2 .
+            :D a :D2 .
+        } .
+    } .
+} .
+
+# Test
+() log:nand {
+    :C a :C2 .
+
+    () log:nand {
+        :D a :D2 .
+    } .
+
+    () log:nand {
+        :test :is true .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

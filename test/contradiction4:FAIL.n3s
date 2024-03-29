@@ -1,0 +1,14 @@
+@prefix : <http://example.org/ns#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+# \Some x,y,z : :Alice :hates :Quiche 
+() log:nand {
+    (_:a _:b _:c) log:nand {
+        :Alice :hates :Quiche
+    } .
+} .
+
+# \Every a : :Alices :hates :Quiche 
+(_:a) log:nand {
+    :Alice :hates :Quiche .
+} .

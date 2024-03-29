@@ -1,0 +1,25 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+## Uncommenting one of these below should create a contradiction
+:Alice :loves :Wine .
+#:Alice :likes :Beer .
+
+## There is nothing that Alice loves
+(_:What) log:nand {
+    :Alice :loves _:What  .
+    () log:nand {
+        () log:nand {
+            :Alice :loves _:What .
+        }
+    } .
+} .
+
+() log:nand {
+    :Alice :likes :Beer .
+    () log:nand {
+        :Alice :loves :Wine .
+    } .
+} .
+
+{ :test :is true } log:query { :test :is true } .

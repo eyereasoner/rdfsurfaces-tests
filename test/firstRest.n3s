@@ -1,0 +1,24 @@
+@prefix : <urn:example:> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+
+:Alice a :Person .
+
+[ rdf:first _:S ; rdf:rest rdf:nil ] log:nand {
+    :Alice a :Person .
+    rdf:nil log:nand {
+        :Alice a :Human .
+    }
+} .
+
+# Test 
+
+rdf:nil log:nand {
+    :Alice a :Human .
+
+    rdf:nil log:nand {
+        :test :is true .
+    } . 
+} .
+
+{ :test :is true } log:query { :test :is true } .
