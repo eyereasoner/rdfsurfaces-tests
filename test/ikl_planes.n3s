@@ -33,8 +33,8 @@ _:A1 owl:differentFrom _:A3 .
 _:A2 owl:differentFrom _:A3 .
 
 # Comment this out..this is should blow a fuse (and it does!)
-#() log:nand {
-#    (_:X _:Y) log:nand {
+#(_:X _:Y) log:nand {
+#    () log:nand {
 #        _:X a :Airplane .
 #        _:Y a :Airplane .
 #        _:X :id 1 .
@@ -43,9 +43,9 @@ _:A2 owl:differentFrom _:A3 .
 #    } .
 #} .
 
-() log:nand {
+(_:X _:Y) log:nand {
     # So this must be true
-    (_:X _:Y) log:nand {
+    () log:nand {
         _:X a :Airplane .
         _:Y a :Airplane .
         _:X :id 1 .
