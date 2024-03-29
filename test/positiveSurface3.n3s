@@ -41,9 +41,9 @@
 # on the positive surface to block the scope of the variables
 (_:S _:O) log:nand {
     # Write for _:S and _:O new grafiti ..
-    (_:S _:O) log:nand {
+    (_:Sn _:On) log:nand {
        () log:nand {
-        _:S :knows _:O .
+        _:Sn :knows _:On .
        } .
     } .
     () log:nand {
@@ -72,7 +72,7 @@ log:query
 
         # There shouldn't be any extra hates
         _:Counter a log:GraphCounter .
-        { _:S :hates _:O } _:Counter 1.
+        { _:S :hates _:O } _:Counter 1 .
 
         () log:nand {
             :test :is true .

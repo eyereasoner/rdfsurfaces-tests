@@ -8,9 +8,11 @@
         (_:G _:F) log:nand {
             _:G log:nand _:F .
 
-            () log:onPositiveSurface {
-                _:G log:nand _:F .
-            } . 
+            () log:nand {
+                () log:nand {
+                    _:G log:nand _:F .
+                } .
+            } .
         } .
     } .
     () log:nand {
