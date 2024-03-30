@@ -15,12 +15,11 @@
     ) .
 
 # This is to display the output of your program
-{
-    ?S :result ?O .
-} 
-log:query 
-{
-    ?S :result ?O .
+(_:S _:O) log:nand {
+    _:S :result _:O .
+    () log:nans {
+        _:S :result _:O .
+    } .
 } .
 
 # Test
@@ -31,7 +30,7 @@ log:query
     } .
 } .
 
-{ :test :is true } log:query { :test :is true } .
+() log:nand { :test :is true. () log:nans { :test :is true } } .
 
 # START BLOGIC Stuff------------------------------------------------------------
 # This is still work in progress

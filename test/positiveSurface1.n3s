@@ -21,12 +21,11 @@ _:x a :PastaEater .
     } .
 } .  
 
-{
-    ?S a ?O .
-} 
-log:query
-{
-    ?S a ?O .
+(_:S _:O) log:nand {
+    _:S a _:O .
+    () log:nans {
+        _:S a _:O .
+    } .
 } .
 
 # Test
@@ -38,4 +37,4 @@ log:query
     } .
 } .
 
-{ :test :is true } log:query { :test :is true } .
+() log:nand { :test :is true. () log:nans { :test :is true } } .

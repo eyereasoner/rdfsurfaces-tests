@@ -67,4 +67,9 @@
     } .
 } .
 
-{ ?S :is true } log:query { ?S :is true } .
+(_:S) log:nand {
+    _:S :is true .
+    () log:nans {
+        _:S :is true .
+    } .
+} .

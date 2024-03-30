@@ -51,12 +51,11 @@
     } .
 } .
 
-{
-    ?S :isKnowable true .
-} 
-log:query
-{
-    ?S :isKnowable true .
+(_:S _:O) log:nand {
+    _:S :isKnowable _:O .
+    () log:nans {
+        _:S :isKnowable _:O .
+    } .
 } .
 
 # Test 
@@ -89,4 +88,4 @@ log:query
     _:List list:length _:Count .
 } .
 
-{ :test :is true } log:query { :test :is true } .
+() log:nand { :test :is true. () log:nans { :test :is true } } .

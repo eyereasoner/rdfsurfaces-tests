@@ -28,4 +28,9 @@
     } .
 } .
 
-{ ?S rdf:value ?O } log:query { ?S rdf:value ?O } .
+(_:S _:O) log:nand {
+    _:S rdf:value _:O .
+    () log:nans {
+        _:S rdf:value _:O .
+    } .
+} .

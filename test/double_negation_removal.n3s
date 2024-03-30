@@ -33,7 +33,7 @@
     } .
 } .
 
-{
+() log:nand {
     :test1 a :test .
     :test2 a :test .
 
@@ -46,8 +46,7 @@
         :subject1 a :subject .
         :test4 a :test .
     } .
-}
-log:query
-{
-    :test :is true .
+    () log:nans {
+        :test :is true .
+    } .
 } .

@@ -46,12 +46,11 @@
 # Filter out what to see in the output 
 # ( _:P _:O ) is for all P and O in log:onQuerySurface 
 # return only the triples matching 
-{
-    ?S :sibling  ?O . 
-} 
-log:query
-{
-    ?S :sibling  ?O . 
+(_:S _:O) log:nand {
+    _:S :sibling _:O .
+    () log:nans {
+        _:S :sibling _:O .
+    } .
 } .
 
 # Test
@@ -63,4 +62,4 @@ log:query
     } .
 } .
 
-{ :test :is true } log:query { :test :is true } .
+() log:nand { :test :is true. () log:nans { :test :is true } } .

@@ -29,4 +29,4 @@
     } .
 } .
 
-{ :test :is true } log:query { :test :is true } .
+() log:nand { :test :is true. () log:nans { :test :is true } } .

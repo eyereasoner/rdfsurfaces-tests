@@ -58,7 +58,7 @@
     } .
 } .
 
-{ :test :is true } log:query { :test :is true } .
+() log:nand { :test :is true. () log:nans { :test :is true } } .
 
 # Debug
 (_:X1 _:X2 _:X3 _:X4) log:nand {
@@ -75,10 +75,9 @@
     } .
 } .
 
-{
-    ?G1 :OR ?G2 .
-} 
-log:query
-{
-    ?G1 :OR ?G2 .
+(_:G1 _:G2) log:nand {
+    _:G1 :OR _:G2 .
+    () log:nans {
+        _:G1 :OR _:G2 .
+    } .
 } .

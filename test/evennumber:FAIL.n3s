@@ -20,14 +20,13 @@
 } .
 
 # Verbose
-#{
+#(_:S) log:nand {
 #   () log:nand {
-#     ?S a :EvenNumber .
+#     _:S a :EvenNumber .
 #   }.
-#}
-#log:query 
-#{ 
-#   () log:nand {
-#     ?S a :EvenNumber .
+#   () log:nans {
+#       () log:nand {
+#           _:S a :EvenNumber .
+#       }.
 #   }.
 #} .

@@ -65,13 +65,12 @@
 
 # Query and test 
 
-{
-    ?S :knows ?O .
-} 
-log:query
-{
-    ?S :knows ?O .
-}.
+(_:S _:O) log:nand {
+    _:S :knows _:O .
+    () log:nans {
+        _:S :knows _:O .
+    } .
+} .
 
 # Test 
 
@@ -83,4 +82,4 @@ log:query
     } . 
 } .
 
-{ :test :is true } log:query { :test :is true } .
+() log:nand { :test :is true. () log:nans { :test :is true } } .
