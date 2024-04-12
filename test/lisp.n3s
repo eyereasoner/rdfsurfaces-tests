@@ -47,7 +47,7 @@
 } .
 
 (_:L1 _:L2 _:H _:R) log:nand {
-    () log:nand <<_:L1 :eval _:L2>> .
+    () log:nano {_:L1 :eval _:L2} .
 
     _:L1 log:rawType rdf:List .
 
@@ -61,14 +61,14 @@
 } .
 
 (_:L1 _:L2 _:Type) log:nand {
-    () log:nand <<_:L1 :eval _:L2>> .
+    () log:nano {_:L1 :eval _:L2} .
     _:L1 log:rawType _:Type .
     _:Type log:notEqualTo rdf:List .
     _:L1 log:equalTo _:L2 .
 } .
 
 (_:L1 _:L2 _:H _:R _:Type) log:nand {
-    () log:nand <<_:L1 :eval _:L2>> .
+    () log:nano {_:L1 :eval _:L2} .
 
     _:L1 log:rawType rdf:List .
 
@@ -88,19 +88,19 @@
 
 # :quote
 (_:L1 _:L2) log:nand {
-    () log:nand <<(_:L1) :quote _:L2>> .
+    () log:nano {(_:L1) :quote _:L2} .
     _:L1 log:equalTo _:L2 .
 } .
 
 # :atom
 (_:L1 _:X) log:nand {
-    () log:nand <<_:L1 :atom true>> .
+    () log:nano {_:L1 :atom true} .
     _:L1 :eval _:X .
     _:X log:rawType log:Formula . 
 } .
 
 (_:L1 _:X _:Y) log:nand {
-    () log:nand <<(_:L1) :atom false>> .
+    () log:nano {(_:L1) :atom false} .
     _:L1 :eval _:X .
     _:X log:rawType _:Y . 
     _:Y log:notEqualTo log:Formula .
@@ -108,7 +108,7 @@
 
 # :eq
 (_:L1 _:L2 _:X _:Y) log:nand {
-    () log:nand <<(_:L1 _:L2) :eq true>> .
+    () log:nano {(_:L1 _:L2) :eq true} .
     _:L1 :eval _:X .
     _:L2 :eval _:Y .
     _:X :atom true .
@@ -116,14 +116,14 @@
 } .
 
 (_:L1 _:L2 _:X _:Y) log:nand {
-    () log:nand <<(_:L1 _:L2) :eq false>> .
+    () log:nano {(_:L1 _:L2) :eq false} .
     _:L1 :eval _:X .
     _:L2 :eval _:Y .
     _:X :atom false .
 } .
 
 (_:L1 _:L2 _:X _:Y) log:nand {
-    () log:nand <<(_:L1 _:L2) :eq false>> .
+    () log:nano {(_:L1 _:L2) :eq false} .
     _:L1 :eval _:X .
     _:L2 :eval _:Y .
     _:X log:notEqualTo _:Y .
@@ -131,14 +131,14 @@
 
 # :car
 (_:L1 _:L2 _:X) log:nand {
-    () log:nand <<(_:L1) :car _:L2>> .
+    () log:nano {(_:L1) :car _:L2} .
     _:L1 :eval _:X .
     _:X list:first _:L2 .
 } .
 
 # :cdr
 (_:L1 _:X _:Y _:L2) log:nand {
-    () log:nand <<(_:L1) :cdr _:L2>> .
+    () log:nano {(_:L1) :cdr _:L2} .
     _:L1 :eval _:X .
 
     _:X list:firstRest ( _:Y _:L2 ) .
@@ -146,7 +146,7 @@
 
 # :cons
 (_:L1 _:X _:Y _:L2 _:L3) log:nand {
-    () log:nand <<(_:L1 _:L2) :cons _:L3>> .
+    () log:nano {(_:L1 _:L2) :cons _:L3} .
     _:L1 :eval _:X .
     _:L2 :eval _:Y .
     ( (_:X) _:Y ) list:append _:L3 .
