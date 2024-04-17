@@ -10,11 +10,11 @@ FAILED=0
 SKIPPED=0
 
 if [ "$1" == "clean" ]; then
-    rm test/*.out 2> /dev/null
+    find . -name "*.out" -exec rm {} \;
     exit 0
 fi 
 
-for n3s in test/*.n3s ; do 
+for n3s in $(find . -name "*.n3s" | sort) ; do 
     if [[ "$n3s" =~ SKIP ]] ; then
         echo "(skipping $n3s)" | tee $n3s.out
     else
