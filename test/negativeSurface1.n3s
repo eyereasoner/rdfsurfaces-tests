@@ -8,7 +8,7 @@
 :Mary :sibling :Agnes .
 
 # (_:X _:Y) is like For all X and Y) within the surface
-# log:nand claims the RDF graph on the surface
+# log:onNegativeSurface claims the RDF graph on the surface
 # is false.
 #
 # To have a NOT in a logic is quite powerfull. The implication
@@ -23,22 +23,22 @@
 #
 # ( P -> Q ) <=> ~( P AND ~Q ) 
 #
-# Which means we can nest log:nand to express P -> Q
+# Which means we can nest log:onNegativeSurface to express P -> Q
 #   
 # What in N3 was:
 #    { ?X a ?Y } => { ?Y a :Test } .
 # is in blogic
-#    (_:X _:Y) log:nand {
+#    (_:X _:Y) log:onNegativeSurface {
 #       _:X a _:Y .
-#       () log:nand  {
+#       () log:onNegativeSurface  {
 #           _:Y a :Test .
 #       } .
 #    } .
-(_:X _:Y _:Z) log:nand {
+(_:X _:Y _:Z) log:onNegativeSurface {
     _:X :sibling _:Y .
     _:Y :sibling _:Z .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:X :sibling _:Z .
     } .
 } .
@@ -46,20 +46,20 @@
 # Filter out what to see in the output 
 # ( _:P _:O ) is for all P and O in log:onQuerySurface 
 # return only the triples matching 
-(_:S _:O) log:nand {
+(_:S _:O) log:onNegativeSurface {
     _:S :sibling _:O .
-    () log:nans {
+    () log:onNegativeAnswerSurface {
         _:S :sibling _:O .
     } .
 } .
 
 # Test
-() log:nand {
+() log:onNegativeSurface {
     :Alice :sibling :Charly .
     :Hans :sibling :Agnes .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

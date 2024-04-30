@@ -5,40 +5,40 @@
 # we see it is failing when activating line 35 (_:S a :Person)
 
 :Alice a :Person .
-() log:nand {
+() log:onNegativeSurface {
     :Alice a :DogLover .
 } .
 
 # For all S a Person : 
 #  (S a DogLover) OR
 #  (S a CatLover)
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S a :Person .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :DogLover .
     } .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :CatLover .
     } .
 } .
 
 # All DogLovers are PetLovers
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S a :DogLover .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :PetLover .
     } .
 } .
 
 # All CatLovers (that are Persons) are PetLovers
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S a :Person .  # Without this line it works
     _:S a :CatLover .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :PetLover .
     } .
 } .
@@ -48,11 +48,11 @@
 } .
 
 # Test
-() log:nand {
+() log:onNegativeSurface {
     :Alice a :PetLover .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

@@ -2,35 +2,35 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 # (\Every x: (x a Cat)) v (:Hector a :Dog)
-() log:nand {
-    () log:nand {
-        (_:X) log:nand {
-           () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
+        (_:X) log:onNegativeSurface {
+           () log:onNegativeSurface {
               _:X a :Cat .
            } .
         } .
     } .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :Hector a :Dog .
     } . 
 } .
 
-() log:nand{
+() log:onNegativeSurface{
 
     # \Every x: ( (x a Cat) v (:Hector a :Dog) )
-    (_:X) log:nand {
-        () log:nand {
+    (_:X) log:onNegativeSurface {
+        () log:onNegativeSurface {
             _:X a :Cat .
         } .
-        () log:nand {
+        () log:onNegativeSurface {
             :Hector a :Dog .
         } . 
     } .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

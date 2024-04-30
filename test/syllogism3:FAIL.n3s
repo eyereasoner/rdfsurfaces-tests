@@ -2,21 +2,21 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 :Alice a :Cyclist .
-() log:nand {
+() log:onNegativeSurface {
     :Alice a :IceSkater .
 } .
 
 # All cyclists are iceskaters and all iceskaters are cyclists
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :Cyclist .
-    () log:nand {
+    () log:onNegativeSurface {
         _:X a :IceSkater .
     } .
 } . 
 
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :IceSkater .
-    () log:nand {
+    () log:onNegativeSurface {
         _:X a :Cyclist .
     } .
 } . 

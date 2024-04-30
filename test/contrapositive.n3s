@@ -7,43 +7,43 @@
 :Alice a :Person ; :likes :Dogs .
 
 # A Person likes Cats or Dogs (or both)
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S a :Person .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S :likes :Cats .
     } .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S :likes :Dogs .
     } .
 } .
 
 # A person that likes cats , likes Pets
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S :likes :Cats .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :PetLover .
     } .
 } .
 
 # A person that likes dogs , likes Pets
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S :likes :Dogs .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :PetLover .
     } .
 } .
 
 # We can query if we have a PetLover in the family
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S a :PetLover .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

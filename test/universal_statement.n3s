@@ -6,18 +6,18 @@
 # Follows:
 #  ~(bob is Perfect) 
 
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X :is :Perfect .
 } .
 
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
        :bob :is :Perfect .
     } .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

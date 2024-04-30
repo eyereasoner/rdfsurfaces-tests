@@ -2,40 +2,40 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 # q -> s
-() log:nand {
+() log:onNegativeSurface {
     :q a :verb .
-    () log:nand {
+    () log:onNegativeSurface {
         :s a :verb . 
     } .
 } .
 
 # r -> s
-() log:nand {
+() log:onNegativeSurface {
     :r a :verb .
-    () log:nand {
+    () log:onNegativeSurface {
         :s a :verb . 
     } .
 } .
 
 # (q -> s) , (r -> s) / (q v r) -> s
-() log:nand {
+() log:onNegativeSurface {
     # (q v r) -> s
-	() log:nand {
-	    () log:nand {
-	        () log:nand {
+	() log:onNegativeSurface {
+	    () log:onNegativeSurface {
+	        () log:onNegativeSurface {
 	            :q a :verb .
 	        } .
-	        () log:nand {
+	        () log:onNegativeSurface {
 	            :r a :verb .
 	        } . 
 	    } .
-	    () log:nand {
+	    () log:onNegativeSurface {
 	        :s a :verb .
 	    } .
 	} .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

@@ -6,20 +6,20 @@
 #:Alice :likes :Beer .
 
 ## There is nothing that Alice loves
-(_:What) log:nand {
+(_:What) log:onNegativeSurface {
     :Alice :loves _:What  .
-    () log:nand {
-        () log:nand {
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
             :Alice :loves _:What .
         }
     } .
 } .
 
-() log:nand {
+() log:onNegativeSurface {
     :Alice :likes :Beer .
-    () log:nand {
+    () log:onNegativeSurface {
         :Alice :loves :Wine .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

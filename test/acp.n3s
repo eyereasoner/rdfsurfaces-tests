@@ -13,19 +13,19 @@
     :noneOf :D .
 
 
-(_:Pol _:Test _:Field _:X) log:nand {
+(_:Pol _:Test _:Field _:X) log:onNegativeSurface {
     _:Test :policy _:Pol .
 
     _:Pol a :Policy .
 
     ( { _:Pol :allOf _:Field } { _:Test :has _:Field } ) log:forAllIn _:X .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:Pol :pass :allOfTest .
     } .
 } .
 
-(_:Pol _:Test _:Field _:List _:L _:X) log:nand {
+(_:Pol _:Test _:Field _:List _:L _:X) log:onNegativeSurface {
     _:Test :policy _:Pol .
 
     _:Pol a :Policy .
@@ -36,12 +36,12 @@
 
     _:L log:notEqualTo 0 .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:Pol :pass :anyOfTest .
     } .
 } .
 
-(_:Pol _:Test _:Field _:List _:L _:X) log:nand {
+(_:Pol _:Test _:Field _:List _:L _:X) log:onNegativeSurface {
     _:Test :policy _:Pol .
 
     _:Pol a :Policy .
@@ -52,24 +52,24 @@
 
     _:L log:equalTo 0 .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:Pol :pass :noneOfTest .
     } .
 } .
 
-(_:Pol) log:nand {
+(_:Pol) log:onNegativeSurface {
     _:Pol a :Policy .
 
     _:Pol :pass :allOfTest , :anyOfTest , :noneOfTest .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S :is true .
-    () log:nans {
+    () log:onNegativeAnswerSurface {
         _:S :is true .
     } .
 } .

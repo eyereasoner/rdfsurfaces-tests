@@ -5,24 +5,24 @@
 :Socrates a :Man.
 :Man rdfs:subClassOf :Mortal.
 
-(_:A _:B _:S) log:nand {
-    () log:nand {
-      () log:nand {
+(_:A _:B _:S) log:onNegativeSurface {
+    () log:onNegativeSurface {
+      () log:onNegativeSurface {
         _:A rdfs:subClassOf _:B.
         _:S a _:A.
       } .
     }.
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a _:B.
     }.
 }.
 
 # question
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S a :Mortal.
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true.
     }.
 }.
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

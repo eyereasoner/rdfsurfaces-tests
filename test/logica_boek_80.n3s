@@ -4,20 +4,20 @@
 ### Premises
 
 # p -> q
-() log:nand {
+() log:onNegativeSurface {
     :p a :verb .
-    () log:nand {
+    () log:onNegativeSurface {
         :q a :verb. 
     } .
 } .
 
 # (r v s) -> ~q
-() log:nand {
-    () log:nand {
-        () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
             :r a :verb . 
         } .
-        () log:nand {
+        () log:onNegativeSurface {
             :s a :verb . 
         } .
     } .
@@ -28,20 +28,20 @@
 
 # p -> q & ~s 
 
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
         :p a :verb .
-        () log:nand {
+        () log:onNegativeSurface {
             :q a :verb .
-            () log:nand {
+            () log:onNegativeSurface {
                 :s a :verb . 
             } . 
         } . 
     } .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
 ### query
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

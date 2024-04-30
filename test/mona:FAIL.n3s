@@ -11,27 +11,27 @@
 :Mona a :Cow.
 
 # Everything that is a cow and purple has acrophobia
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :Cow .
     _:X :color :purple .
-    () log:nand {
+    () log:onNegativeSurface {
          _:X :has :acrophobia.
     }.
 }.
 
 # Everything that is a cow and not purple has acrophobia
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :Cow .
-    () log:nand {
+    () log:onNegativeSurface {
          _:X :color :purple .
      }.
-    () log:nand {
+    () log:onNegativeSurface {
           _:X :has :acrophobia.
     }.
 }.
 
 # proof by contradiction
 # assuming the negation of the query :Mona :has :acrophobia .
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X :has :acrophobia .
 }.

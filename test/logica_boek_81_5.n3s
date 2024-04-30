@@ -2,31 +2,31 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 # p -> ( q & r )
-() log:nand {
+() log:onNegativeSurface {
     :p a :verb .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :q a :verb . 
         :r a :verb . 
     } .
 } .
 
 # q -> ~s 
-() log:nand {
+() log:onNegativeSurface {
     :q a :verb .
     :s a :verb .
 } .
 
 # consequent s -> ~p
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
         :s a :verb .
         :p a :verb . 
     } .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true . 
     } .
 } .
 
 # query
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

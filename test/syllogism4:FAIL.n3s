@@ -3,24 +3,24 @@
 
 # Some persons are not a cyclist , nor a iceskater
 _:X a :Person .
-() log:nand {
+() log:onNegativeSurface {
     _:X a :Cyclist .
 } .
-() log:nand {
+() log:onNegativeSurface {
     _:X a :IceSkater .
 } .
 
 # All persons are a cyclist or iceskater but not both
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :Person .
-    () log:nand {
+    () log:onNegativeSurface {
         _:X a :Cyclist.
     } .
-    () log:nand {
+    () log:onNegativeSurface {
         _:X a :IceSkater .
     } .
 } .
 
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :Cyclist , :IceSkater .
 } .

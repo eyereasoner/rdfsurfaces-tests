@@ -3,48 +3,48 @@
 
 # q -> (r & s)  /  q -> r
 # q -> (r & s)  /  q -> s
-() log:nand {
+() log:onNegativeSurface {
     :q a :verb .
-    () log:nand {
+    () log:onNegativeSurface {
         :r a :verb . 
         :s a :verb . 
     } .
 } .
 
 # (q -> r) -> t
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
         :q a :verb .
-        () log:nand {
+        () log:onNegativeSurface {
             :r a :verb .
         } .
     } .
-    () log:nand {
+    () log:onNegativeSurface {
         :t a :verb .
     } .
 } .
 
 # (q -> s) -> u
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
         :q a :verb .
-        () log:nand {
+        () log:onNegativeSurface {
             :s a :verb .
         } .
     } .
-    () log:nand {
+    () log:onNegativeSurface {
         :u a :verb .
     } .
 } .
 
 # we must have a t
 # we must have a u
-() log:nand {
+() log:onNegativeSurface {
     :t a :verb .
     :u a :verb .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .  
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

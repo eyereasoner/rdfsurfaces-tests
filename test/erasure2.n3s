@@ -6,14 +6,14 @@
 # ~(B . ~(C . ~(B . D))) = B -> C . ~D
 # Make a B
 :B a :B2 .
-() log:nand {
+() log:onNegativeSurface {
     :B a :B2 .
 
-    () log:nand {
+    () log:onNegativeSurface {
         # C
         :C a :C2 .
 
-        () log:nand {
+        () log:onNegativeSurface {
             :B a :B2 .
             :D a :D2 .
         } .
@@ -21,35 +21,35 @@
 } .
 
 # Verbose
-(_:S _:O) log:nand {
+(_:S _:O) log:onNegativeSurface {
     _:S a _:O .
-    () log:nans {
+    () log:onNegativeAnswerSurface {
         _:S a _:O .
     } .
 } .
 
-(_:S _:O) log:nand {
-    () log:nand {
+(_:S _:O) log:onNegativeSurface {
+    () log:onNegativeSurface {
         _:S a _:O .
     } .
-    () log:nans {
-        () log:nand {
+    () log:onNegativeAnswerSurface {
+        () log:onNegativeSurface {
             _:S a _:O .
         } .
     } .
 } .
 
 # Test
-() log:nand {
+() log:onNegativeSurface {
     :C a :C2 .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :D a :D2 .
     } .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

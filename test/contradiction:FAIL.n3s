@@ -2,19 +2,19 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 # \exists x : x a Cat
-(_:x) log:nand {
-    () log:nand {
+(_:x) log:onNegativeSurface {
+    () log:onNegativeSurface {
         _:x a :Cat .
     }
 } .
 
 # \forall x : not(x a Cat)
-(_:x) log:nand {
-    () log:nand {
-        () log:nand {
+(_:x) log:onNegativeSurface {
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
             _:x a :Cat .
         } .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

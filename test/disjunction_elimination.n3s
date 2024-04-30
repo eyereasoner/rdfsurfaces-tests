@@ -13,41 +13,41 @@
 # |- (P v R)->Q . (P v R)
 # Here follows Q
 :Beetle a :Car .
-() log:nand {
+() log:onNegativeSurface {
     :Beetle :is :blue . 
 } .
 
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     # P
     _:S :is :green.
 
-    () log:nand {
+    () log:onNegativeSurface {
         # -> Q
         _:S :is :beautiful .
     } .
 } .
 
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     # R
     _:S :is :blue.
 
-    () log:nand {
+    () log:onNegativeSurface {
         # -> Q
         _:S :is :beautiful .
     } .
 } .
 
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     # Need to match something in the data to trigger the rules
     _:S a :Car.
 
     # P
-    () log:nand {
+    () log:onNegativeSurface {
         _:S :is :green . 
     } .
 
     # OR R
-    () log:nand {
+    () log:onNegativeSurface {
         _:S :is :blue . 
     } .
 } .
@@ -59,7 +59,7 @@
 
 # The negation of the conclusion should blow an inference fuse
 # ~Q (!?)
-#() log:nand {
+#() log:onNegativeSurface {
 #    :Beetle :is :beautiful .
 #} .
 
@@ -67,12 +67,12 @@
 # in a reasoner, this also needs to work. 
 # 
 ## Test
-() log:nand {
+() log:onNegativeSurface {
     :Beetle :is :beautiful .
     
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

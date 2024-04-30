@@ -6,10 +6,10 @@
 :Croissant a :French, :Bread .
 
 # ∀ x : ( x a Wine ) -> ( x contains Alcohol )
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :Wine .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:X :contains :Alcohol .
     } .
 } .
@@ -25,20 +25,20 @@
 #         ( ( x a Wine ) -> ( x contains Alcohol ) )  ->
 #         ( ( x a French ) -> ( x needs ImportTax ) )
 #  ) 
-(_:X) log:nand {
-    () log:nand {
+(_:X) log:onNegativeSurface {
+    () log:onNegativeSurface {
         _:X a :Wine .
 
-        () log:nand {
+        () log:onNegativeSurface {
             _:X :contains :Alcohol .
         } .
     } . 
-    () log:nand {
-        () log:nand {
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
             _:X :contains :Alcohol . # This is the extra rule that makes the Question work (josd)
             _:X a :French .
 
-            () log:nand {
+            () log:onNegativeSurface {
                 _:X :needs :ImportTax .
             } .
         } . 
@@ -47,20 +47,20 @@
 
 # Test
 
-() log:nand {
+() log:onNegativeSurface {
     :Croissant :needs :ImportTax .
 } .
 
-() log:nand {
+() log:onNegativeSurface {
     :Badenhorst :needs :ImportTax .
 } .
 
-() log:nand {
+() log:onNegativeSurface {
     :ChateauxGreysac :needs :ImportTax .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .  
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

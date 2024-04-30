@@ -8,16 +8,16 @@
 #\forall x \exists y1,y2 \forall z : 
 #  (x a Father) -> y1 child x & y2 pet y1 & 
 #  (z pet y1 & y1 child x -> x likes z) 
-(_:x) log:nand {
+(_:x) log:onNegativeSurface {
     _:x a :father .
-    (_:y1 _:y2) log:nand {
+    (_:y1 _:y2) log:onNegativeSurface {
         _:y1 :child _:x .
         _:y2 :pet _:y1.
 
-        (_:z) log:nand {
+        (_:z) log:onNegativeSurface {
             _:z :pet _:y1 .
             _:y1 :child _:x .
-            () log:nand {
+            () log:onNegativeSurface {
                 _:x :likes _:z .
             } .
         } .
@@ -25,7 +25,7 @@
 } .
 
 # Test
-(_:x _:y _:a _:b) log:nand {
+(_:x _:y _:a _:b) log:onNegativeSurface {
     _:x :child :jozef .
     _:y :child :franklin .
 
@@ -36,7 +36,7 @@
 
     _:a log:notEqualTo _:b .
 
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
@@ -44,4 +44,4 @@
 # Todo add test for the pets
 
 # Queries
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

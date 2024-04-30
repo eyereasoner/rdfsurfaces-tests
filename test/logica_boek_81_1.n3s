@@ -7,14 +7,14 @@
 
 :p a :verb .
 
-() log:nand {
+() log:onNegativeSurface {
     :q a :verb .
 } .
 
 # r -> q
-() log:nand {
+() log:onNegativeSurface {
     :r a :verb .
-    () log:nand {
+    () log:onNegativeSurface {
         :q a :verb . 
     } .
 } .
@@ -22,14 +22,14 @@
 # Consequent
 
 # ~r
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
         :r a :verb . 
     } .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true . 
     } .
 } .
 
 # query
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

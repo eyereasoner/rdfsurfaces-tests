@@ -4,39 +4,39 @@
 # Modus tollens example.
 
 # If X is a chicken, then X is a bird
-(_:X) log:nand {
+(_:X) log:onNegativeSurface {
     _:X a :Chicken .
-    () log:nand {
+    () log:onNegativeSurface {
         _:X a :Bird .
     } .
 } .
 
 # Rex is not a bird...
-() log:nand {
+() log:onNegativeSurface {
     :Rex a :Bird .
 } .
 
 # ..then Rex is not a chicken
 
 # (test if this conclusion is true)
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
         :Rex a :Chicken .
     } .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .
 
 # Show the results
-(_:S _:O) log:nand {
-    () log:nand {
+(_:S _:O) log:onNegativeSurface {
+    () log:onNegativeSurface {
         _:S a _:O .
     } .
-    () log:nans {
-        () log:nand {
+    () log:onNegativeAnswerSurface {
+        () log:onNegativeSurface {
             _:S a _:O .
         } .
     } .

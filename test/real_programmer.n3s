@@ -17,7 +17,7 @@
 # Test 2
 
 # Alice doesn't eat Quiche
-() log:nand {
+() log:onNegativeSurface {
     :Alice :eats :Quiche .
 } .
 
@@ -30,7 +30,7 @@
 ############################################## 
 # Test 3
 
-() log:nand {
+() log:onNegativeSurface {
     :Charly a :RealProgrammer .
 } .
 
@@ -40,15 +40,15 @@
 ############################################## 
 # Test 4
 
-() log:nand {
-    () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
         :Dave :eats :Quiche .
     } .
 } .
 
-() log:nand {
-    () log:nand {
-        () log:nand {
+() log:onNegativeSurface {
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
             :Estelle a :RealProgrammer.
         } .
     } .
@@ -64,35 +64,35 @@
 #     ( P -> ~Q ) AND (~Q -> P) AND ( ~P -> Q ) AND ( Q -> ~ P )
 # P = real programmer
 # Q = eat quiche
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
 
     _:S a :RealProgrammer .
 
-    () log:nand {
+    () log:onNegativeSurface {
     
-        () log:nand {
+        () log:onNegativeSurface {
             _:S :eats :Quiche  .
         } .
     } .
 }.
 
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :RealProgrammer .
     } .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S :eats :Quiche .
     } .
 }.
 
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
 
     _:S :eats :Quiche .
  
-    () log:nand {
-        () log:nand {
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
             _:S a :RealProgrammer .
         } .
     } .
@@ -101,24 +101,24 @@
 # Q (eat quiche) -> P ( you are a programmer)
 #
 # Q -> P = ~ ( Q AND ~P )
-(_:S) log:nand {
+(_:S) log:onNegativeSurface {
     _:S :eats :Quiche .
 
-    () log:nand {
+    () log:onNegativeSurface {
         _:S a :Programmer .
     } .
 } .
 
 # Test
-() log:nand {
+() log:onNegativeSurface {
     :Alice a :RealProgrammer .
     :Bob a :Programmer .
     :Charly a :Programmer .
     :Dave a :Programmer .
     :Estelle a :Programmer .
-    () log:nand {
+    () log:onNegativeSurface {
         :test :is true .
     } .
 } .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

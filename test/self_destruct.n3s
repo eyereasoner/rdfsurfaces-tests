@@ -4,14 +4,14 @@
 # If there is a negative surface (including this surface)
 # then this surface is false?
 # No, the inner surfaces are not logical but pure syntax
-( _:G _:F ) log:nand {
-   _:G log:nand _:F .
+( _:G _:F ) log:onNegativeSurface {
+   _:G log:onNegativeSurface _:F .
 
-   ( ) log:nand {
-       _:G log:nand _:F .
+   ( ) log:onNegativeSurface {
+       _:G log:onNegativeSurface _:F .
    } . 
 } .
 
 :test :is true .
 
-() log:nand { :test :is true. () log:nans { :test :is true } } .
+() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .
