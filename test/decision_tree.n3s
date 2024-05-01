@@ -15,7 +15,8 @@
     a :OneValueFrom ;
     :values (:LessThan30 :Between30And40 :MoreThan40) .
 
-# Compiler
+### 
+# Compiler - if income is Low, then NOT(Medium) & NOT(High) ..same for age
 (_:S _:P _:O _:X _:Y _:Z) log:onNegativeSurface {
     _:S a :Person ;
         _:P _:O .
@@ -34,8 +35,10 @@
         } .
     } .
 } . 
-##########
+# End Compiler
+###
 
+## Tha decision tree
 (_:S) log:onNegativeSurface {
     _:S a :Person ;
 
@@ -67,6 +70,7 @@
     } .
 } .
 
+## Test
 () log:onNegativeSurface { 
     :John :buys :Computer .
     () log:onNegativeAnswerSurface { 
@@ -74,6 +78,7 @@
     } .
 } .
 
+## Debug
 (_:S _:P _:O) log:onNegativeSurface { 
     _:S a :Person .
 
