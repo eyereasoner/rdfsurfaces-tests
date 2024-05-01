@@ -40,7 +40,7 @@
 
 ## Tha decision tree
 (_:S) log:onNegativeSurface {
-    _:S a :Person ;
+    _:S a :Person .
 
     () log:onNegativeSurface {
         _:S :income :Low .
