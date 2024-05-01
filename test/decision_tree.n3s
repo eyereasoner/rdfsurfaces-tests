@@ -1,0 +1,99 @@
+@prefix : <urn:example:> .
+@prefix log: <http://www.w3.org/2000/10/swap/log#> .
+@prefix list: <http://www.w3.org/2000/10/swap/list#> .
+
+:John 
+    a :Person ;
+    :income :High ;
+    :age :LessThan30 .
+
+:income
+    a :OneValueFrom ;
+    :values (:Low :Middle :High) .
+
+:age
+    a :OneValueFrom ;
+    :values (:LessThan30 :Between30And40 :MoreThan40) .
+
+# Compiler
+(_:S _:P _:O _:X _:Y _:Z) log:onNegativeSurface {
+    _:S a :Person ;
+        _:P _:O .
+
+    _:P 
+        a :OneValueFrom ;
+        :values _:X .
+
+    (_:X _:O) list:remove _:Y .
+
+    _:Z list:in _:Y .
+
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
+            _:S _:P _:Z .
+        } .
+    } .
+} . 
+##########
+
+(_:S) log:onNegativeSurface {
+    _:S a :Person ;
+
+    () log:onNegativeSurface {
+        _:S :income :Low .
+        # More statements to follow here...
+    } .
+
+    () log:onNegativeSurface {
+        _:S :income :Medium .
+        # More statements to follow here...
+    } .
+
+    () log:onNegativeSurface {
+        _:S :income :High .
+
+        () log:onNegativeSurface {
+            _:S :age :LessThan30 .
+            _:S :buys :Computer .
+        } . 
+
+        () log:onNegativeSurface {
+            _:S :age :Between30And40 .
+
+            () log:onNegativeSurface {
+                _:S :buys :Computer .
+            } .
+        } .
+    } .
+} .
+
+() log:onNegativeSurface { 
+    :John :buys :Computer .
+    () log:onNegativeAnswerSurface { 
+        :test :is true .
+    } .
+} .
+
+(_:S _:P _:O) log:onNegativeSurface { 
+    _:S a :Person .
+
+    _:S _:P _:O .
+
+    () log:onNegativeAnswerSurface { 
+       _:S _:P _:O .
+    } .
+} .
+
+(_:S _:P _:O) log:onNegativeSurface { 
+    _:S a :Person .
+
+    () log:onNegativeSurface {
+        _:S _:P _:O .
+    } .
+
+    () log:onNegativeAnswerSurface { 
+        () log:onNegativeSurface {
+            _:S _:P _:O .
+        } .
+    } .
+} .
