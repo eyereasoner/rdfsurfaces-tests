@@ -56,15 +56,17 @@
         _:S :income :High .
 
         () log:onNegativeSurface {
-            _:S :age :LessThan30 .
-            _:S :buys :Computer .
-        } . 
-
-        () log:onNegativeSurface {
-            _:S :age :Between30And40 .
+            () log:onNegativeSurface {
+                _:S :age :LessThan30 .
+                _:S :buys :Computer .
+            } . 
 
             () log:onNegativeSurface {
-                _:S :buys :Computer .
+                _:S :age :Between30And40 .
+
+                () log:onNegativeSurface {
+                    _:S :buys :Computer .
+                } .
             } .
         } .
     } .
