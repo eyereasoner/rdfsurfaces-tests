@@ -48,7 +48,7 @@
     } .
 
     () log:onNegativeSurface {
-        _:S :income :Medium .
+        _:S :income :Middle .
         # More statements to follow here...
     } .
 
