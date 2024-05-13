@@ -1,9 +1,11 @@
 @prefix : <urn:example.org:> .
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
-# Researcher preferences
+##############################################################################
+# Researcher preferences                                                     #
+##############################################################################
 
-# Pref 1. Preprint publications in a subject repo
+## Pref 1. Preprint publications in a subject repo
 (_:R) log:onNegativeSurface {
   _:R a :SubjectRepository .
 
@@ -12,7 +14,7 @@
   } . 
 } .
 
-# Pref 2 . Publications by a journal that doesn't charge APC costs
+## Pref 2 . Publications by a journal that doesn't charge APC costs
 (_:J) log:onNegativeSurface {
     _:J a :Journal .
 
@@ -25,7 +27,7 @@
     } .
 } .
 
-# Pref 3 . Publications by a publisher that is in WOS
+## Pref 3 . Publications by a publisher that is in WOS
 (_:J) log:onNegativeSurface {
    _:J a :Journal ;
         :indexedIn :WOS .
@@ -35,7 +37,11 @@
    } .
 }.
 
-# Institute preferences
+##############################################################################
+# Institute preferences                                                      #
+##############################################################################
+
+## Pref 1 . Only journals that are indexed in WOS
 (_:J) log:onNegativeSurface {
    _:J a :Journal ;
         :indexedIn :WOS . 
@@ -45,7 +51,9 @@
    } .
 } .
 
-# Journal ABC
+##############################################################################
+# Journal preferences                                                        #
+##############################################################################
 
 :ABC a :Journal ;
     :indexedIn :WOS .
