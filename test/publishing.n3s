@@ -55,13 +55,16 @@
 # Journal preferences                                                        #
 ##############################################################################
 
+## ABC is a journal that is indexedin WOS, but no information about APC costs
 :ABC a :Journal ;
     :indexedIn :WOS .
 
+## DEF is a journal that is indexed in WOS and requires APC costs
 :DEF a :Journal ;
     :indexedIn :WOS ;
     :requires :APC .
 
+## GHI is a journal that does not require APC costs
 :GHI a :Journal .
 
 () log:onNegativeSurface {
@@ -72,6 +75,7 @@
     :GHI :indexedIn :WOS .
 } .
 
+## JKL is a subject repository
 :JKL a :SubjectRepository .
 
 # Test
