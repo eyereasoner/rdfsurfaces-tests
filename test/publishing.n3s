@@ -72,6 +72,8 @@
     :GHI :indexedIn :WOS .
 } .
 
+:JKL a :SubjectRepository .
+
 # Test
 
 () log:onNegativeSurface {
@@ -82,6 +84,8 @@
     :DEF a :ResearcherPreference .
 
     :GHI a :ResearcherPreference .
+
+    :JKL a :ResearcherPreference .
     
     () log:onNegativeAnswerSurface {
         :test :is true .
