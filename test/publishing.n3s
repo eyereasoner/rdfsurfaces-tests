@@ -5,7 +5,7 @@
 # Researcher preferences                                                     #
 ##############################################################################
 
-## Pref 1. Preprint publications in a subject repo
+## Pref 1 . Publications in a subject repo
 (_:R) log:onNegativeSurface {
   _:R a :SubjectRepository .
 
