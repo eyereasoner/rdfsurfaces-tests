@@ -29,8 +29,8 @@
 
 ## Pref 3 . Publications by a publisher that is in WOS
 (_:J) log:onNegativeSurface {
-   _:J a :Journal ;
-        :indexedIn :WOS .
+   _:J a :Journal .
+   :WOS :indexed _:J .
 
    () log:onNegativeSurface {
         _:J a :ResearcherPreference.
@@ -43,8 +43,8 @@
 
 ## Pref 1 . Only journals that are indexed in WOS
 (_:J) log:onNegativeSurface {
-   _:J a :Journal ;
-        :indexedIn :WOS . 
+   _:J a :Journal .
+   :WOS :indexed _:J .
 
    () log:onNegativeSurface {
       _:J a :InstitutePreference .
@@ -55,24 +55,24 @@
 # Journal preferences                                                        #
 ##############################################################################
 
-## ABC is a journal that is indexedin WOS, but no information about APC costs
-:ABC a :Journal ;
-    :indexedIn :WOS .
-
-## DEF is a journal that is indexed in WOS and requires APC costs
-:DEF a :Journal ;
-    :indexedIn :WOS ;
-    :requires :APC .
-
-## GHI is a journal that does not require APC costs
+## Journal facts
+:ABC a :Journal .
+:DEF a :Journal .
 :GHI a :Journal .
 
+# APC facts
+:ABC :requires :APC .
+
+## GHI is a journal that does not require APC costs
 () log:onNegativeSurface {
     :GHI :requires :APC .
 } .
 
+# WOS Facts
+:WOS :indexed :ABC , :DEF .
+
 () log:onNegativeSurface {
-    :GHI :indexedIn :WOS .
+    :WOS :indexed :GHI .
 } .
 
 ## JKL is a subject repository
