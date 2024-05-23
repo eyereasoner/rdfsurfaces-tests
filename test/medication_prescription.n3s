@@ -6,33 +6,25 @@
 @prefix : <urn:example:>.
 
 :Ann :has :Fever.
+
 () log:onNegativeSurface {
     :Ann :has :AllergyForAspirin.
 }.
+
 :Joe :has :AcuteMyocardialInfarction.
-() log:onNegativeSurface {
-    :Joe :has :ActivePepticUlcerDisease.
-}.
-() log:onNegativeSurface {
-    :Joe :has :AllergyForAspirin.
-}.
+:Joe :has :AllergyForAspirin.
+
 () log:onNegativeSurface {
     :Joe :has :SevereAsthma.
-}.
-() log:onNegativeSurface {
-    :Joe :has :ChronicObstructivePumonaryDisease.
 }.
 
 :aspirinHighDose :prescribedFor :Fever.
 :aspirinLowDose :prescribedFor :AcuteMyocardialInfarction.
 :betaBlocker :prescribedFor :AcuteMyocardialInfarction.
 
-:aspirinHighDose :excludedFor :ActivePepticUlcerDisease.
 :aspirinHighDose :excludedFor :AllergyForAspirin.
-:aspirinLowDose :excludedFor :ActivePepticUlcerDisease.
 :aspirinLowDose :excludedFor :AllergyForAspirin.
 :betaBlocker :excludedFor :SevereAsthma.
-:betaBlocker :excludedFor :ChronicObstructivePumonaryDisease.
 
 (_:WHO _:DIAGNOSIS _:MEDICATION _:EXCLUSION) log:onNegativeSurface {
     _:WHO :has _:DIAGNOSIS.
@@ -48,7 +40,6 @@
 
 () log:onNegativeSurface {
     :Ann :isPrescribed :aspirinHighDose.
-    :Joe :isPrescribed :aspirinLowDose.
     :Joe :isPrescribed :betaBlocker.
     () log:onNegativeAnswerSurface {
         :test :is true.
