@@ -5,43 +5,78 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#>.
 @prefix : <urn:example:>.
 
+# patient Ann
 :Ann :has :Fever.
 
 () log:onNegativeSurface {
     :Ann :has :AllergyForAspirin.
 }.
 
+() log:onNegativeSurface {
+    :Ann :has :ActivePepticUlcerDisease.
+}.
+
+# patient Joe
 :Joe :has :AcuteMyocardialInfarction.
 :Joe :has :AllergyForAspirin.
 
 () log:onNegativeSurface {
+    :Joe :has :ActivePepticUlcerDisease.
+}.
+() log:onNegativeSurface {
     :Joe :has :SevereAsthma.
 }.
+() log:onNegativeSurface {
+    :Joe :has :ChronicObstructivePumonaryDisease.
+}.
 
-:aspirinHighDose :prescribedFor :Fever.
-:aspirinLowDose :prescribedFor :AcuteMyocardialInfarction.
-:betaBlocker :prescribedFor :AcuteMyocardialInfarction.
-
-:aspirinHighDose :excludedFor :AllergyForAspirin.
-:aspirinLowDose :excludedFor :AllergyForAspirin.
-:betaBlocker :excludedFor :SevereAsthma.
-
-(_:WHO _:DIAGNOSIS _:MEDICATION _:EXCLUSION) log:onNegativeSurface {
-    _:WHO :has _:DIAGNOSIS.
-    _:MEDICATION :prescribedFor _:DIAGNOSIS.
-    _:MEDICATION :excludedFor _:EXCLUSION.
+# medication prescription logic
+(_:WHO) log:onNegativeSurface {
+    _:WHO :has :Fever.
     () log:onNegativeSurface {
-        _:WHO :has _:EXCLUSION.
+        _:WHO :has :AllergyForAspirin.
     }.
     () log:onNegativeSurface {
-        _:WHO :isPrescribed _:MEDICATION.
+        _:WHO :has :ActivePepticUlcerDisease.
+    }.
+    () log:onNegativeSurface {
+        _:WHO :isPrescribed :aspirinHighDose.
     }.
 }.
 
+(_:WHO) log:onNegativeSurface {
+    _:WHO :has :AcuteMyocardialInfarction.
+    () log:onNegativeSurface {
+        _:WHO :has :AllergyForAspirin.
+    }.
+    () log:onNegativeSurface {
+        _:WHO :has :ActivePepticUlcerDisease.
+    }.
+    () log:onNegativeSurface {
+        _:WHO :isPrescribed :aspirinLowDose.
+    }.
+}.
+
+(_:WHO) log:onNegativeSurface {
+    _:WHO :has :AcuteMyocardialInfarction.
+    () log:onNegativeSurface {
+        _:WHO :has :SevereAsthma.
+    }.
+    () log:onNegativeSurface {
+        _:WHO :has :ChronicObstructivePumonaryDisease.
+    }.
+    () log:onNegativeSurface {
+        _:WHO :isPrescribed :betaBlocker.
+    }.
+}.
+
+# query
 () log:onNegativeSurface {
     :Ann :isPrescribed :aspirinHighDose.
     :Joe :isPrescribed :betaBlocker.
     () log:onNegativeAnswerSurface {
+        :Ann :isPrescribed :aspirinHighDose.
+        :Joe :isPrescribed :betaBlocker.
         :test :is true.
     }.
 }.
