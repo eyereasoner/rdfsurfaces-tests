@@ -27,7 +27,7 @@
     :Joe :has :SevereAsthma.
 }.
 () log:onNegativeSurface {
-    :Joe :has :ChronicObstructivePumonaryDisease.
+    :Joe :has :ChronicObstructivePulmonaryDisease.
 }.
 
 # medication prescription logic
@@ -63,7 +63,7 @@
         _:WHO :has :SevereAsthma.
     }.
     () log:onNegativeSurface {
-        _:WHO :has :ChronicObstructivePumonaryDisease.
+        _:WHO :has :ChronicObstructivePulmonaryDisease.
     }.
     () log:onNegativeSurface {
         _:WHO :isPrescribed :betaBlocker.
