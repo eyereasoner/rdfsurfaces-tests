@@ -13,7 +13,6 @@
     }.
 }.
 
-# question
 (_:S) log:onNegativeSurface {
     _:S a :Mortal.
     () log:onNegativeSurface {
@@ -21,4 +20,6 @@
     }.
 }.
 
-() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .
+() log:onQuerySurface {
+    :test :is true.
+}.
