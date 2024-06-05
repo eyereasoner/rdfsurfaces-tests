@@ -17,10 +17,10 @@
     }.
 }.
 
-() log:onNegativeSurface {
+(_:SCOPE) log:onNegativeSurface {
     # We cannot conclude this
-    :Socrates a :Mortal.
+    _:SCOPE log:notIncludes { :Socrates a :Mortal. } .
+    () log:onNegativeAnswerSurface {
+        :test :is true .
+    }.
 }.
-
-# If this test does not lead to a contradiction, then we are good
-:test :is true .
