@@ -18,8 +18,8 @@
 }.
 
 # question
-(_:S) log:onNegativeSurface {
-    _:S a :Mortal.
+() log:onNegativeSurface {
+    :Socrates a :Mortal.
     () log:onNegativeSurface {
         :test :is true.
     }.
