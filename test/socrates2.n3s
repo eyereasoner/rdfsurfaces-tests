@@ -17,12 +17,10 @@
     }.
 }.
 
-# question
-(_:S) log:onNegativeSurface {
-    _:S a :Mortal.
-    () log:onNegativeSurface {
-        :test :is true.
-    }.
+() log:onNegativeSurface {
+    # We cannot conclude this
+    :Socrates a :Mortal.
 }.
 
-() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .
+# If this test does not lead to a contradiction, then we are good
+:test :is true .
