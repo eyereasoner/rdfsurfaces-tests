@@ -44,6 +44,8 @@
     () log:onNegativeSurface {
         () log:onNegativeSurface {
             :this :test :works1.
+        }.
+        () log:onNegativeSurface {
             :this :test :works2.
         } .
     } .
