@@ -17,12 +17,10 @@
     }.
 }.
 
-# question
-(_:S) log:onNegativeSurface {
-    _:S a :Mortal.
-    () log:onNegativeSurface {
-        :test :is true.
+(_:SCOPE) log:onNegativeSurface {
+    # We cannot conclude this
+    _:SCOPE log:notIncludes { :Socrates a :Mortal. } .
+    () log:onNegativeAnswerSurface {
+        :test :is true .
     }.
 }.
-
-() log:onNegativeSurface { :test :is true. () log:onNegativeAnswerSurface { :test :is true } } .

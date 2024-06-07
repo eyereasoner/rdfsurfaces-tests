@@ -18,8 +18,8 @@ for n3s in $(find . -name "*.n3s" | sort) ; do
     if [[ "$n3s" =~ SKIP ]] ; then
         echo "(skipping $n3s)" | tee $n3s.out
     else
-        echo "eye --nope --quiet $n3s > $n3s.out 2> /dev/null"
-        timeout 10s eye --nope --quiet $n3s > $n3s.out 2>&1 
+        echo "eye --nope --no-bnode-relabeling --quiet $n3s > $n3s.out 2> /dev/null"
+        timeout 10s eye --nope --no-bnode-relabeling --quiet $n3s > $n3s.out 2>&1 
     fi
 done
 

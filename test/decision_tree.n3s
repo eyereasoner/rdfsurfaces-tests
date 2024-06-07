@@ -69,21 +69,21 @@
                 _:S :cr :Excellent .
 
                 # Check age >40 or not
-                () log:onNegativeSurface {
-                    () log:onNegativeSurface {
-                        _:S :age :MoreThan40 .
-                        () log:onNegativeSurface {
-                            _:S :buys :Computer .
-                        } .
-                    } .
+                #() log:onNegativeSurface {
+                #    () log:onNegativeSurface {
+                #        _:S :age :MoreThan40 .
+                #        () log:onNegativeSurface {
+                #            _:S :buys :Computer .
+                #        } .
+                #    } .
 
-                    () log:onNegativeSurface {
-                        () log:onNegativeSurface {
-                            _:S :age :MoreThan40 .
-                        } .
-                        _:S :buys :Computer .
-                    } .
-                } .
+                #    () log:onNegativeSurface {
+                #        () log:onNegativeSurface {
+                #            _:S :age :MoreThan40 .
+                #        } .
+                #        _:S :buys :Computer .
+                #    } .
+                #} .
             } .
         } .
     } .
@@ -119,24 +119,24 @@
                         _:S :buys :Computer .
                     } . 
 
-                    () log:onNegativeSurface {
+                    #() log:onNegativeSurface {
 
                         # Check cr Fiar or Excellent 
 
-                        () log:onNegativeSurface {
-                            () log:onNegativeSurface {
-                                _:S :cr :Fair .
-                                _:S :buys :Computer .
-                            } .
+                    #    () log:onNegativeSurface {
+                    #        () log:onNegativeSurface {
+                    #            _:S :cr :Fair .
+                    #            _:S :buys :Computer .
+                    #        } .
 
-                            () log:onNegativeSurface {
-                                _:S :cr :Excellent .
-                                () log:onNegativeSurface {
-                                    _:S :buys :Computer .
-                                } .
-                            } .
-                        } .
-                    } .
+                    #        () log:onNegativeSurface {
+                    #            _:S :cr :Excellent .
+                    #            () log:onNegativeSurface {
+                    #                _:S :buys :Computer .
+                    #            } .
+                    #        } .
+                    #    } .
+                    #} .
                 } .
             } . 
         } .
