@@ -13,7 +13,7 @@
 (_:x _:y) log:onNegativeSurface {
    _:x :is :working .
 
-   () log:onNegativeSurface { 
+   () log:onNegativeComponentSurface { 
       _:y :is :workingToo .
    } .
 } .
