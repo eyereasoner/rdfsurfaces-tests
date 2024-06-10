@@ -124,9 +124,8 @@
             \+member('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, _), B),
             select('<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, H), B, K),
             conj_list(R, K),
-            find_graffiti(K, D),
-            append(Vl, D, U),
-            makevars([R, H], [Q, S], beta(U)),
+            checkvars(K),
+            makevars([R, H], [Q, S], beta(Vl)),
             findvars(S, W, beta),
             makevars(S, I, beta(W)),
             (   flag(explain)
@@ -161,9 +160,8 @@
                 Z
             ),
             E = '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(Z, T),
-            find_graffiti([R], D),
-            append(Vl, D, U),
-            makevars([R, E], [Q, S], beta(U)),
+            checkvars([R]),
+            makevars([R, E], [Q, S], beta(Vl)),
             findvars(S, W, beta),
             makevars(S, I, beta(W)),
             (   flag(explain)
@@ -182,9 +180,8 @@
             select('<http://www.w3.org/2000/10/swap/log#onNegativeComponentSurface>'(_, T), B, K),
             conj_list(R, K),
             conjify(R, S),
-            find_graffiti([R], D),
-            append(Vl, D, U),
-            makevars([T, S], [Tu, Su], beta(U)),
+            checkvars([R]),
+            makevars([T, S], [Tu, Su], beta(Vl)),
             (   flag(explain)
             ->  conj_append(Su, remember(answer('<http://www.w3.org/2000/10/swap/log#explains>', ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), Su], Tu)), Se)
             ;   Se = Su
@@ -249,9 +246,8 @@
             select('<http://www.w3.org/2000/10/swap/log#onNegativeAnswerSurface>'(_, H), B, K),
             conj_list(I, K),
             djiti_answer(answer(H), J),
-            find_graffiti(K, D),
-            append(Vl, D, U),
-            makevars([I, J], [Iu, Ju], beta(U)),
+            checkvars(K),
+            makevars([I, J], [Iu, Ju], beta(Vl)),
             (   flag(explain)
             ->  conj_append(Ju, remember(answer('<http://www.w3.org/2000/10/swap/log#explains>', ['<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(V, G), Iu], H)), Je)
             ;   Je = Ju
@@ -305,28 +301,3 @@
             J,
             '<http://www.w3.org/2000/10/swap/log#onNegativeSurface>'(_, I)
             ), false, '<void>')).
-
-% support
-find_graffiti(A, []) :-
-    atomic(A),
-    !.
-find_graffiti([], []) :-
-    !.
-find_graffiti([A|B], C) :-
-    !,
-    find_graffiti(A, D),
-    find_graffiti(B, E),
-    append(D, E, C).
-find_graffiti(A, B) :-
-    A =.. [C, D, E],
-    regex('^<.*#on.*Surface>$', C, _),
-    is_list(D),
-    is_graph(E),
-    !,
-    find_graffiti(E, F),
-    findvars(E, G, beta),
-    intersection(D, G, H),
-    append(H, F, B).
-find_graffiti(A, B) :-
-    A =.. C,
-    find_graffiti(C, B).
