@@ -7,13 +7,13 @@ _:x a :Cat .
 (_:x) log:onNegativeSurface {
     _:x a :Cat .
     () log:onNegativeSurface {
-        _:x :says "meow"@en .
+        _:x :says "meow" .
     } .
 } .
 
 () log:onNegativeSurface {
-    _:x :says "meow"@en .
-    :Minka :says "meow"@en .
+    _:x :says "meow" .
+    :Minka :says "meow" .
     () log:onNegativeSurface {
         :test :is true .
     } .
