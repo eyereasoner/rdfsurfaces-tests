@@ -2,6 +2,20 @@
 
 A test kit for [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/).
 
+## Install
+
+Needs at least an installation of one of the RDF Surfaces implementations:
+
+- [EYE](https://github.com/eyereasoner/eye)
+- [Latar](https://github.com/KNowledgeOnWebScale/Latar)
+- [tension.js](https://github.com/joachimvh/tension.js)
+
+Edit the configuration file:
+
+```
+cp config.json-example config.json
+```
+
 ## Run the tests
 
 Clean old
@@ -15,6 +29,22 @@ Run all tests
 ```
 ./make_examples.sh
 ```
+
+## Run a test for a specific implementation of RDF Surfaces
+
+Clean old
+
+```
+./bin/make_examples.js clean
+```
+
+Run all tests
+
+```
+./bin/make_examples.js lib/tension.js
+```
+
+where `lib/tension.js` is a handler for the specific implementation.
 
 ## Test files
 

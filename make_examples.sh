@@ -1,57 +1,14 @@
 #!/bin/bash
 
-RED="\033[31m"
-PINK="\033[35m"
-GREEN="\033[32m"
-NORMAL="\033[0;39m"
+ARG0=$1
 
-OK=0
-FAILED=0
-SKIPPED=0
-
-if [ "$1" == "clean" ]; then
-    find . -name "*.out" -exec rm {} \;
-    exit 0
-fi 
-
-for n3s in $(find . -name "*.n3s" | sort) ; do 
-    if [[ "$n3s" =~ SKIP ]] ; then
-        echo "(skipping $n3s)" | tee $n3s.out
-    else
-        echo "eye --nope --no-bnode-relabeling --quiet $n3s > $n3s.out 2> /dev/null"
-        timeout 10s eye --nope --no-bnode-relabeling --quiet $n3s > $n3s.out 2>&1 
-    fi
-done
-
-for f in $(find . -name "*.out" | sort) ; do
-    if [[ $f =~ examples ]]; then 
-        continue
-    fi
-
-    echo -n "Testing $f ... "
-
-    if [[ $f =~ FAIL ]] && [[ $(grep 'inference_fuse' $f) ]]; then
-        echo -e "${GREEN}OK${NORMAL}"
-        ((OK++))
-    elif [[ $f =~ SKIP ]]; then
-        echo -e "${PINK}SKIPPED${NORMAL}"
-        ((SKIPPED++))
-    elif [[ $(grep '.*:test.*is.*true' $f) ]]; then
-        echo -e "${GREEN}OK${NORMAL}"
-        ((OK++))
-    elif [[ $(grep '() log:onAnswerSurface true' $f) ]]; then
-        echo "OK"
-        ((OK++))
-    else
-        echo -e "${RED}FAILED${NORMAL}"
-        ((FAILED++))
-    fi
-done
-
-echo -e "Results: ${GREEN}${OK} OK${NORMAL}, ${RED}${FAILED} FAILED${NORMAL}, ${PINK}${SKIPPED} SKIPPED${NORMAL}"
-
-if [[ ${FAILED} -eq 0 ]]; then 
-    exit 0
-else    
-    exit 2
+if [ "${ARG0}" == "" ]; then
+    ./bin/make_examples.js lib/eye.js
+elif [ "${ARG0}" == "clean" ]; then
+    ./bin/make_examples.js clean
+else
+    echo "usage: $0 [clean]"
+    exit 1
 fi
+
+exit 0
