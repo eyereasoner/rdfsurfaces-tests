@@ -1,8 +1,8 @@
 {
     "eye": {
-        "path": "/usr/local/bin/eye",
+        "path": "timeout 10s /usr/local/bin/eye",
         "args": "--nope --no-bnode-relabeling --quiet",
-        "timeout": "10"
+        "timeout": "0"
     },
     "tension": {
         "path": "/Users/hochsten/github.com/joachimvh/tension.js/bin/tension.js",
@@ -10,8 +10,8 @@
         "timeout": "10"
     },
     "latar": {
-        "path": "/Users/hochsten/github.com/KNowledgeOnWebScale/Latar/latar",
+        "path": "timeout 10s /Users/hochsten/github.com/KNowledgeOnWebScale/Latar/latar",
         "args": "",
-        "timeout": "10"
+        "timeout": "0"
     }
 }
