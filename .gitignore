@@ -1,1 +1,2 @@
-test/*.out
+config.json
+test/**/*.out
