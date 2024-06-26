@@ -20,6 +20,9 @@
     }.
 }.
 
-() log:onQuerySurface {
+() log:onNegativeSurface {
     :test :is true.
+    () log:onNegativeAnswerSurface {
+        :test :is true.
+    }
 }.

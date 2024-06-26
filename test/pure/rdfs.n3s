@@ -64,8 +64,11 @@
 } .
 
 # Find out what we need to serve Alice
-(_:S _:O _:T) log:onQuerySurface {
+(_:O) log:onNegativeSurface {
     :Alice :consumes _:O .
+    () log:onNegativeAnswerSurface {
+        :Alice :consumes _:O . 
+    } .
 } .
 
 ####################################################################

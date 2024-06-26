@@ -43,8 +43,11 @@
     } .
 } .
 
-(_:S _:O) log:onQuerySurface {
+(_:S _:O) log:onNegativeSurface {
     _:S a _:O .
+    () log:onNegativeAnswerSurface {
+        _:S a _:O .
+    } .
 } .
 
 # Test
