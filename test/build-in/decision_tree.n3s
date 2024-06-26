@@ -114,10 +114,10 @@
                         } .
                     } .
 
-                    () log:onNegativeSurface {
-                        _:S :age :Between30And40 .
-                        _:S :buys :Computer .
-                    } . 
+                    #() log:onNegativeSurface {
+                    #    _:S :age :Between30And40 .
+                    #    _:S :buys :Computer .
+                    #} . 
 
                     #() log:onNegativeSurface {
 

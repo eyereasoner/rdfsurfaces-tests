@@ -2,7 +2,7 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 # From 
-#  \Every x: ~(x is Perfect) 
+#  \forall x: ~(x is Perfect) 
 # Follows:
 #  ~(bob is Perfect) 
 
