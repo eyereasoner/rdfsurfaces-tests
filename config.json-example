@@ -11,12 +11,17 @@
         "timeout": "10"
     },
     "tension": {
-        "path": "timeout 10s /Users/hochsten/github.com/joachimvh/tension.js/bin/tension.js",
+        "path": "timeout 10s $HOME/github.com/joachimvh/tension.js/bin/tension.js",
         "args": "-f",
         "timeout": "10"
     },
     "latar": {
-        "path": "timeout 10s /Users/hochsten/github.com/KNowledgeOnWebScale/Latar/latar",
+        "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/Latar/latar",
+        "args": "",
+        "timeout": "10"
+    },
+    "rs2fol": {
+        "path": "timeout 10s ./script/rs2fol.sh",
         "args": "",
         "timeout": "10"
     }

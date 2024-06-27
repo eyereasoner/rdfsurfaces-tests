@@ -157,6 +157,9 @@ async function run_tests_one(reasoner,filePath) {
     else if (filePath.match(/:FAIL/)) {
         type = `fail`;
     }
+    else if (filePath.match(/:LIE/)) {
+        type = `lie`;
+    }
     else {
         type = `normal`;
     }
