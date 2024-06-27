@@ -42,7 +42,7 @@ async function main(lib, testFile) {
     const reasoner = load_library(lib);
 
     if (!reasoner) {
-        console.error(`${RED}no such reasoner ${arg0}${NORMAL}`);
+        console.error(`${RED}no such reasoner ${lib}${NORMAL}`);
         process.exit(2);
     }
 
@@ -88,7 +88,7 @@ function doHistory(path,elapsed) {
     }
     else {
         const history = {};
-        history[arg0] = [elapsed];
+        history[path] = [elapsed];
         fs.writeFileSync(historyPath, JSON.stringify(history));
     }
 }
