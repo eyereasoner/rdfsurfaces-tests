@@ -11,61 +11,83 @@ const PINK = "\x1b[35m";
 const GREEN = "\x1b[32m";
 const NORMAL = "\x1b[0;39m";
 
-const arg0 = process.argv[2];
+const reasoner = process.argv[2];
+const testFile = process.argv[3];
 
-main(arg0);
+let config = {};
 
-async function main(arg0) {
-    if (!arg0) {
-        console.error(`${RED}usage: make_examples.js clean|reasoner_lib${NORMAL}`);
-        process.exit(1);
+if (fs.existsSync('config.json')) {
+    config = JSON.parse(fs.readFileSync('config.json', { encoding: 'utf-8'}));
+}
+else {
+    console.error(`need a config.json`);
+    process.exit(1);
+}
+
+if (! reasoner) {
+    console.error(`usage: make_examples.js clean|reasoner_lib [file]`);
+    process.exit(1);
+}
+else if (reasoner === 'clean') {
+    clean_tests();
+    process.exit(0);
+}
+else {
+    main(reasoner,testFile);
+}
+
+async function main(lib, testFile) {
+    const reasoner = load_library(lib);
+
+    if (!reasoner) {
+        console.error(`${RED}no such reasoner ${arg0}${NORMAL}`);
+        process.exit(2);
     }
-    else if (arg0 === 'clean') {
-        clean_tests();
+
+    const start   = performance.now();
+    const result  = await run_tests(reasoner,testFile);
+    const elapsed = (performance.now() - start) / 1000;
+
+    console.log(`Elapsed: ${elapsed} seconds`);
+
+    if (config.history && ! testFile) {
+        doHistory(lib,elapsed);
     }
-    else {
-        const reasoner = load_library(arg0);
-        if (!reasoner) {
-            console.error(`${RED}no such reasoner ${arg0}${NORMAL}`);
-            process.exit(2);
-        }
 
-        const start   = performance.now();
-        const result  = await run_tests(reasoner);
-        const elapsed = (performance.now() - start) / 1000;
-        console.log(`Required: ${elapsed} seconds`);
+    process.exit(result ? 0 : 2);
+}
 
-        if (fs.existsSync('.history')) {
-            const history = JSON.parse(fs.readFileSync('.history', { encoding: 'utf-8' }));
-            const prev_run = history[arg0];
-            if (prev_run) {
-               console.log(` That is ...`);
-               for (let i = prev_run.length - 1 ; i >= 0 ; i--) {
-                   const prev = prev_run[i];
-                   const comp = elapsed - prev;
-                   const perc = (elapsed / comp) * 100 ;
-                   if (comp > 0) {
-                      console.log(` ${comp} slower than run[${i}] = ${perc}%`);
-                   }
-                   else {
-                      console.log(` ${comp} faster than run[${i}] = ${perc}%`);
-                   }
+function doHistory(path,elapsed) {
+    const historyPath = config.history.path;
+    const historySize = config.history.size;
+
+    if (fs.existsSync(historyPath)) {
+        const history = JSON.parse(fs.readFileSync('.history', { encoding: 'utf-8' }));
+        const prev_run = history[path];
+        if (prev_run) {
+           for (let i = prev_run.length - 1 ; i >= 0 ; i--) {
+               const prev = prev_run[i];
+               const comp = elapsed - prev;
+               const perc = ((elapsed / prev) * 100 - 100);
+               if (comp > 0) {
+                  console.log(` ${comp} seconds slower than run[${i}] = ${RED}${perc}%${NORMAL}`);
                }
-               history[arg0].push(elapsed);
-            }
-            else {
-               history[arg0] = [elapsed];
-            }
-            history[arg0] = history[arg0].slice(Math.max(history[arg0].length - 5, 0));
-            fs.writeFileSync('.history', JSON.stringify(history));
+               else {
+                  console.log(` ${comp} seconds faster than run[${i}] = ${GREEN}${perc}%${NORMAL}`);
+               }
+           }
+           history[path].push(elapsed);
         }
         else {
-            const history = {};
-            history[arg0] = [elapsed];
-            fs.writeFileSync('.history', JSON.stringify(history));
+           history[path] = [elapsed];
         }
-
-        process.exit(result ? 0 : 2);
+        history[path] = history[path].slice(Math.max(history[path].length - historySize, 0));
+        fs.writeFileSync(historyPath, JSON.stringify(history));
+    }
+    else {
+        const history = {};
+        history[arg0] = [elapsed];
+        fs.writeFileSync(historyPath, JSON.stringify(history));
     }
 }
 
@@ -81,64 +103,78 @@ function *walkSync(dir) {
     }
 }
 
-async function run_tests(reasoner) {
-    let config = {};
-
-    if (fs.existsSync('config.json')) {
-        config = JSON.parse(fs.readFileSync('config.json', { encoding: 'utf-8'}));
-    }
-    else {
-        console.error(`${RED}need a config.json${NORMAL}`);
-        process.exit(1);
-    }
-
+async function run_tests(reasoner, testFile) {
     let ok = 0, failed = 0, skipped = 0;
 
-    for (const filePath of walkSync('./test')) {
-        if (! filePath.endsWith('.n3s')) {
-            continue;
-        }
+    if (testFile) {
+        const [ res_ok, res_failed , res_skipped ] = await run_tests_one(reasoner,testFile);
+        ok = ok + res_ok;
+        failed = failed + res_failed;
+        skipped = failed + res_skipped;
+    }
+    else {
+        const testDir = config['test_dir'] || './test';
+        const testExt = config['test_ext'] || './n3s';
 
-        let type = undefined;
+        for (const filePath of walkSync(testDir)) {
+            if (! filePath.endsWith(testExt)) {
+                continue;
+            }
 
-        if (filePath.match(/:SKIP/)) {
-            type = `skip`;
-        }
-        else if (filePath.match(/:FAIL/)) {
-            type = `fail`;
-        }
-        else {
-            type = `normal`;
-        }
+            const [ res_ok, res_failed , res_skipped ] = await run_tests_one(reasoner,filePath);
 
-        let result;
-
-        try {
-            config.type = type;
-            result = await reasoner(filePath,config);
-        }
-        catch(e) {
-            console.error(e);
-            result = false;
-        }
-
-        if (result === null) {
-            skipped++;
-            console.log(`Testing ${filePath} ... ${PINK}SKIPPED${NORMAL}`);
-        }
-        else if (result) {
-            ok++;
-            console.log(`Testing ${filePath} ... ${GREEN}OK${NORMAL}`);
-        }
-        else {
-            failed++;
-            console.log(`Testing ${filePath} ... ${RED}FAILED${NORMAL}`);
-        }
-    } 
+            ok += res_ok;
+            failed += res_failed;
+            skipped += res_skipped;
+        } 
+    }
 
     console.log(`Results: ${GREEN}${ok} OK${NORMAL}, ${RED}${failed} FAILED${NORMAL}, ${PINK}${skipped} SKIPPED${NORMAL}`);
 
     return failed;
+}
+
+async function run_tests_one(reasoner,filePath) {
+    let ok = 0, failed = 0, skipped = 0; 
+    let type = undefined;
+
+    if (filePath.match(/:SKIP/)) {
+        type = `skip`;
+    }
+    else if (filePath.match(/:FAIL/)) {
+        type = `fail`;
+    }
+    else {
+        type = `normal`;
+    }
+
+    let result;
+    let answer;
+
+    try {
+        config.type = type;
+        answer = await reasoner(filePath,config);
+    }
+    catch(e) {
+        console.error(e);
+        result = false;
+    }
+
+    if (answer[0] === null) {
+        skipped++;
+        console.log(`Testing ${filePath} ... ${PINK}SKIPPED${NORMAL}`);
+    }
+    else if (answer[0]) {
+        ok++;
+        console.log(`Testing ${filePath} ... ${GREEN}OK${NORMAL}`);
+    }
+    else {
+        const why = answer[1] ? ` (${answer[1]})` : '';
+        failed++;
+        console.log(`Testing ${filePath} ... ${RED}FAILED${why}${NORMAL}`);
+    }
+
+    return [ ok , failed , skipped ];
 }
 
 function clean_tests() {

@@ -46,6 +46,12 @@ Run all tests
 
 where `lib/tension.js` is a handler for the specific implementation.
 
+Run one test
+
+```
+./bin/make_examples.js lib/tension.js test/pure/beetle.n3s
+```
+
 ## Test files
 
 - Test files need to have `.n3s` extensions
@@ -53,6 +59,17 @@ where `lib/tension.js` is a handler for the specific implementation.
    - Test produces `<urn:example:test> <urn:example:is> true .`
    - Test throws an inference fuse and the test file has the `:FAIL.n3s` extension (e.g. `mytest:FAIL.n3s`)
 - For a test to be skipped (e.g. work in progress) use the `:SKIP.n3s` extension (e.g. `myother:SKIP.n3s`)
+
+## Config
+
+- test_dir : directory with test files
+- test_ext : which file extensions to test
+- history : activate the history of previous runs
+  - history.path : path to history file
+  - history.size : size of history
+- eye : configuration of the `lib/eye.js` reasoner
+- latar : configuration of the `lib/latar.js` reasoner
+- tension : configuration of the `lib/tension.js` reasoner
 
 ## Contributors
 

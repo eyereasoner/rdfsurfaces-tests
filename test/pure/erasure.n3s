@@ -10,7 +10,7 @@
 # Testing we don't get a fuse
 () log:onNegativeSurface {
     # B
-    () log:onNegativeSurface true .
+    () log:onNegativeSurface {} .
 
     # This we should get as output
     () log:onNegativeSurface {
@@ -27,7 +27,7 @@
 
     () log:onNegativeSurface {
         # C
-        () log:onNegativeSurface true .
+        () log:onNegativeSurface {} .
 
         () log:onNegativeSurface {
             :A a :A0 .
@@ -67,7 +67,7 @@
 
         () log:onNegativeSurface {
             # D .
-            () log:onNegativeSurface true .
+            () log:onNegativeSurface {} .
 
             () log:onNegativeSurface {
                 :A a :A0 .
@@ -107,7 +107,7 @@
 
     () log:onNegativeSurface {
         # C
-        () log:onNegativeSurface true .
+        () log:onNegativeSurface {} .
 
         () log:onNegativeSurface {
             :B a :B5 .
@@ -145,7 +145,7 @@
 
         () log:onNegativeSurface {
             # D .
-            () log:onNegativeSurface true .
+            () log:onNegativeSurface {} .
 
             () log:onNegativeSurface {
                 :B a :B7 .

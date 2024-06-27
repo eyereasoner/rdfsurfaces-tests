@@ -1,0 +1,23 @@
+{
+    "test_dir": "./test",
+    "test_ext": ".n3s",
+    "history": {
+        "path" : ".history",
+        "size" : "10"
+    },
+    "eye": {
+        "path": "timeout 10s /usr/local/bin/eye",
+        "args": "--nope --no-bnode-relabeling --quiet",
+        "timeout": "10"
+    },
+    "tension": {
+        "path": "timeout 10s /Users/hochsten/github.com/joachimvh/tension.js/bin/tension.js",
+        "args": "-f",
+        "timeout": "10"
+    },
+    "latar": {
+        "path": "timeout 10s /Users/hochsten/github.com/KNowledgeOnWebScale/Latar/latar",
+        "args": "",
+        "timeout": "10"
+    }
+}
