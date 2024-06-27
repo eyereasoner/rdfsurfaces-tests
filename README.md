@@ -70,6 +70,7 @@ Run one test
 - eye : configuration of the `lib/eye.js` reasoner
 - latar : configuration of the `lib/latar.js` reasoner
 - tension : configuration of the `lib/tension.js` reasoner
+- r2fol : configuration of the `lib/rs2fol.js` reasoner
 
 ## Contributors
 
