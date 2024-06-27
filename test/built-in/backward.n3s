@@ -1,0 +1,23 @@
+# ----------------
+# Backward example
+# ----------------
+#
+# See https://www.w3.org/2000/10/swap/doc/tutorial-1.pdf page 17
+
+@prefix math: <http://www.w3.org/2000/10/swap/math#>.
+@prefix log: <http://www.w3.org/2000/10/swap/log#>.
+@prefix : <http://example.org/#>.
+
+# something is more interesting if it is greater
+(_:X _:Y) log:onNegativeSurface {
+    () log:onNegativeComponentSurface {_:X :moreInterestingThan _:Y}.
+    _:X math:greaterThan _:Y.
+}.
+
+# query
+() log:onNegativeSurface {
+    5 :moreInterestingThan 3.
+    () log:onNegativeAnswerSurface {
+        :test :is true.
+    }.
+}.
