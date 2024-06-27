@@ -5,9 +5,11 @@ const { performance } = require('perf_hooks');
 const path = require('path');
 const fs = require('fs');
 const { error } = require('console');
+const { IS_OK , IS_INCOMPLETE , IS_TIMEOUT , IS_LIE , IS_SKIPPED , IS_CRASHED } = require('../lib/errors');
 
 const RED = "\x1b[31m";
 const PINK = "\x1b[35m";
+const GREY = "\x1b[30m";
 const GREEN = "\x1b[32m";
 const NORMAL = "\x1b[0;39m";
 
@@ -104,13 +106,16 @@ function *walkSync(dir) {
 }
 
 async function run_tests(reasoner, testFile) {
-    let ok = 0, failed = 0, skipped = 0;
+    let ok = 0, incomplete= 0, timeout = 0, lie = 0, skipped = 0, other = 0; 
 
     if (testFile) {
-        const [ res_ok, res_failed , res_skipped ] = await run_tests_one(reasoner,testFile);
+        const [ res_ok, res_incomplete , res_timeout , res_lie , res_skipped , res_other ] = await run_tests_one(reasoner,testFile);
         ok = ok + res_ok;
-        failed = failed + res_failed;
-        skipped = failed + res_skipped;
+        incomplete = incomplete + res_incomplete;
+        timeout = timeout + res_timeout;
+        lie = lie + res_lie;
+        skipped = skipped + res_skipped;
+        other = other + res_other;
     }
     else {
         const testDir = config['test_dir'] || './test';
@@ -121,21 +126,29 @@ async function run_tests(reasoner, testFile) {
                 continue;
             }
 
-            const [ res_ok, res_failed , res_skipped ] = await run_tests_one(reasoner,filePath);
+            const [ res_ok, res_incomplete , res_timeout , res_lie , res_skipped , res_other ] = await run_tests_one(reasoner,filePath);
 
-            ok += res_ok;
-            failed += res_failed;
-            skipped += res_skipped;
+            ok = ok + res_ok;
+            incomplete = incomplete + res_incomplete;
+            timeout = timeout + res_timeout;
+            lie = lie + res_lie;
+            skipped = skipped + res_skipped;
+            other = other + res_other;
         } 
     }
 
-    console.log(`Results: ${GREEN}${ok} OK${NORMAL}, ${RED}${failed} FAILED${NORMAL}, ${PINK}${skipped} SKIPPED${NORMAL}`);
+    console.log(`Results: ${GREEN}${ok} OK${NORMAL}, ${RED}${incomplete} INCOMPLETE${NORMAL}, ${RED}${lie} LIES${NORMAL}, ${PINK}${timeout} TIMEOUT${NORMAL}, ${GREY}${skipped} SKIPPED${NORMAL}, ${other} OTHER`);
 
-    return failed;
+    if (incomplete || lie || timeout || other) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 async function run_tests_one(reasoner,filePath) {
-    let ok = 0, failed = 0, skipped = 0; 
+    let ok = 0, incomplete= 0, timeout = 0, lie = 0, skipped = 0 , other = 0; 
     let type = undefined;
 
     if (filePath.match(/:SKIP/)) {
@@ -160,21 +173,32 @@ async function run_tests_one(reasoner,filePath) {
         result = false;
     }
 
-    if (answer[0] === null) {
+    if (answer == IS_SKIPPED) {
         skipped++;
-        console.log(`Testing ${filePath} ... ${PINK}SKIPPED${NORMAL}`);
+        console.log(`Testing ${filePath} ... ${GREY}SKIPPED${NORMAL}`);
     }
-    else if (answer[0]) {
+    else if (answer === IS_OK) {
         ok++;
         console.log(`Testing ${filePath} ... ${GREEN}OK${NORMAL}`);
     }
+    else if (answer === IS_TIMEOUT) {
+        timeout++;
+        console.log(`Testing ${filePath} ... ${PINK}TIMEOUT${NORMAL}`);
+    }
+    else if (answer === IS_INCOMPLETE) {
+        incomplete++;
+        console.log(`Testing ${filePath} ... ${RED}INCOMPLETE${NORMAL}`);
+    }
+    else if (answer === IS_LIE) {
+        lie++;
+        console.log(`Testing ${filePath} ... ${RED}LIE${NORMAL}`);
+    }
     else {
-        const why = answer[1] ? ` (${answer[1]})` : '';
-        failed++;
-        console.log(`Testing ${filePath} ... ${RED}FAILED${why}${NORMAL}`);
+        other++;
+        console.log(`Testing ${filePath} ... OTHER`);
     }
 
-    return [ ok , failed , skipped ];
+    return [ ok , incomplete , timeout , lie , skipped , other ];
 }
 
 function clean_tests() {
