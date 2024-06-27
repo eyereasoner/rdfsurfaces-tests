@@ -34,20 +34,6 @@
     } .
 } .
 
-(_:S _:O) log:onNegativeSurface {
-    _:S :friend _:O .
-    () log:onNegativeAnswerSurface {
-        _:S :friend _:O .
-    } .
-} .
-
-(_:S _:O) log:onNegativeSurface {
-    _:S :likes _:O .
-    () log:onNegativeAnswerSurface {
-        _:S :likes _:O .
-    } .
-} .
-
 # Test
 () log:onNegativeSurface {
     :Alice :likes :Bob .
