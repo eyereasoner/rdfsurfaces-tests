@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+
+const { performance } = require('perf_hooks');
 const path = require('path');
 const fs = require('fs');
 const { error } = require('console');
@@ -28,7 +30,42 @@ async function main(arg0) {
             process.exit(2);
         }
 
-        await run_tests(reasoner);
+        const start   = performance.now();
+        const result  = await run_tests(reasoner);
+        const elapsed = (performance.now() - start) / 1000;
+        console.log(`Required: ${elapsed} seconds`);
+
+        if (fs.existsSync('.history')) {
+            const history = JSON.parse(fs.readFileSync('.history', { encoding: 'utf-8' }));
+            const prev_run = history[arg0];
+            if (prev_run) {
+               console.log(` That is ...`);
+               for (let i = prev_run.length - 1 ; i >= 0 ; i--) {
+                   const prev = prev_run[i];
+                   const comp = elapsed - prev;
+                   const perc = (elapsed / comp) * 100 ;
+                   if (comp > 0) {
+                      console.log(` ${comp} slower than run[${i}] = ${perc}%`);
+                   }
+                   else {
+                      console.log(` ${comp} faster than run[${i}] = ${perc}%`);
+                   }
+               }
+               history[arg0].push(elapsed);
+            }
+            else {
+               history[arg0] = [elapsed];
+            }
+            history[arg0] = history[arg0].slice(Math.max(history[arg0].length - 5, 0));
+            fs.writeFileSync('.history', JSON.stringify(history));
+        }
+        else {
+            const history = {};
+            history[arg0] = [elapsed];
+            fs.writeFileSync('.history', JSON.stringify(history));
+        }
+
+        process.exit(result ? 0 : 2);
     }
 }
 
@@ -101,12 +138,7 @@ async function run_tests(reasoner) {
 
     console.log(`Results: ${GREEN}${ok} OK${NORMAL}, ${RED}${failed} FAILED${NORMAL}, ${PINK}${skipped} SKIPPED${NORMAL}`);
 
-    if (failed) {
-        process.exit(2);
-    }
-    else {
-        process.exit(0);
-    }
+    return failed;
 }
 
 function clean_tests() {
