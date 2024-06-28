@@ -47,7 +47,7 @@ async function main(lib, testFile) {
     }
 
     const start   = performance.now();
-    const result  = await run_tests(reasoner,testFile);
+    const result  = await run_tests(lib,reasoner,testFile);
     const elapsed = (performance.now() - start) / 1000;
 
     console.log(`Elapsed: ${elapsed} seconds`);
@@ -105,7 +105,7 @@ function *walkSync(dir) {
     }
 }
 
-async function run_tests(reasoner, testFile) {
+async function run_tests(lib,reasoner, testFile) {
     let ok = 0, incomplete= 0, timeout = 0, lie = 0, skipped = 0, other = 0; 
 
     if (testFile) {
@@ -137,7 +137,7 @@ async function run_tests(reasoner, testFile) {
         } 
     }
 
-    console.log(`Results: ${GREEN}${ok} OK${NORMAL}, ${RED}${incomplete} INCOMPLETE${NORMAL}, ${RED}${lie} LIES${NORMAL}, ${PINK}${timeout} TIMEOUT${NORMAL}, ${GREY}${skipped} SKIPPED${NORMAL}, ${other} OTHER`);
+    console.log(`Results (${lib}): ${GREEN}${ok} OK${NORMAL}, ${RED}${incomplete} INCOMPLETE${NORMAL}, ${RED}${lie} LIES${NORMAL}, ${PINK}${timeout} TIMEOUT${NORMAL}, ${GREY}${skipped} SKIPPED${NORMAL}, ${other} OTHER`);
 
     if (incomplete || lie || timeout || other) {
         return false;
