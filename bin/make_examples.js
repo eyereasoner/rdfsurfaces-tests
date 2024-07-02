@@ -151,13 +151,13 @@ async function run_tests_one(reasoner,filePath) {
     let ok = 0, incomplete= 0, timeout = 0, lie = 0, skipped = 0 , other = 0; 
     let type = undefined;
 
-    if (filePath.match(/:SKIP/)) {
+    if (filePath.match(/_SKIP/)) {
         type = `skip`;
     }
-    else if (filePath.match(/:FAIL/)) {
+    else if (filePath.match(/_FAIL/)) {
         type = `fail`;
     }
-    else if (filePath.match(/:LIE/)) {
+    else if (filePath.match(/_LIE/)) {
         type = `lie`;
     }
     else {
