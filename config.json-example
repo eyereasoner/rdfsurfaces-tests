@@ -24,5 +24,10 @@
         "path": "timeout 10s ./script/rs2fol.sh",
         "args": "",
         "timeout": "10"
+    },
+    "retina": {
+        "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/retina/retin3s",
+        "args": "",
+        "timeout": "10"
     }
 }
