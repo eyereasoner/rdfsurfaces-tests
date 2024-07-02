@@ -21,7 +21,7 @@
         "timeout": "10"
     },
     "rs2fol": {
-        "path": "./script/rs2fol.sh",
+        "path": "timeout 10s ./script/rs2fol.sh",
         "args": "",
         "timeout": "10"
     },
