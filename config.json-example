@@ -11,8 +11,8 @@
         "timeout": "10"
     },
     "tension": {
-        "path": "timeout 10s $HOME/github.com/joachimvh/tension.js/bin/tension.js",
-        "args": "-f",
+        "path": "node",
+        "args": "$HOME/github.com/joachimvh/tension.js/bin/tension.js -f",
         "timeout": "10"
     },
     "latar": {
