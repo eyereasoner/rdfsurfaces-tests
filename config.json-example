@@ -6,13 +6,13 @@
         "size" : "10"
     },
     "eye": {
-        "path": "timeout 10s /usr/local/bin/eye",
+        "path": "/usr/local/bin/eye",
         "args": "--nope --no-bnode-relabeling --quiet",
         "timeout": "10"
     },
     "tension": {
-        "path": "timeout 10s $HOME/github.com/joachimvh/tension.js/bin/tension.js",
-        "args": "-f",
+        "path": "node",
+        "args": "$HOME/github.com/joachimvh/tension.js/bin/tension.js -f",
         "timeout": "10"
     },
     "latar": {
@@ -21,12 +21,12 @@
         "timeout": "10"
     },
     "rs2fol": {
-        "path": "timeout 10s ./script/rs2fol.sh",
+        "path": "./script/rs2fol.sh",
         "args": "",
         "timeout": "10"
     },
     "retina": {
-        "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/retina/retin3s",
+        "path": "$HOME/github.com/KNowledgeOnWebScale/retina/retin3s",
         "args": "",
         "timeout": "10"
     }
