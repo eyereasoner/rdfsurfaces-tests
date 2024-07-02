@@ -9,6 +9,7 @@ Needs at least an installation of one of the RDF Surfaces implementations:
 - [EYE](https://github.com/eyereasoner/eye)
 - [Latar](https://github.com/KNowledgeOnWebScale/Latar)
 - [tension.js](https://github.com/joachimvh/tension.js)
+- [rs2fol](https://github.com/RebekkaMa/rs2fol)
 
 Edit the configuration file:
 
