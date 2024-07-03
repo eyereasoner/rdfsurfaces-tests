@@ -40,11 +40,17 @@
     }.
 }.
 
-# query
 (_:A) log:onNegativeSurface {
     _:A :path :nantes.
+    () log:onNegativeSurface {
+        :test :is :true.
+    }.
+}.
+
+# query
+(_:A) log:onNegativeSurface {
+    :test :is :true.
     () log:onNegativeAnswerSurface {
-        _:A :path :nantes.
         :test :is :true.
     }.
 }.
