@@ -5,41 +5,40 @@
 
 ( _:x) log:onNegativeSurface {
     ( _:y) log:onNegativeSurface {
-   		_:x :hasChild _:y .
-   		() log:onNegativeSurface { 
-      		_:y :can :fly .
-   		} .
+       _:x :hasChild _:y .
+       () log:onNegativeSurface { 
+          _:y :can :fly .
+       } .
     } .
     () log:onNegativeSurface { 
-      _:x :is :happy .
+       _:x :is :happy .
     } .
 } .
 
 ( _:x) log:onNegativeSurface {
-	_:x :is :green.
+   _:x :is :green.
     () log:onNegativeSurface { 
-      _:x :can :fly .
+       _:x :can :fly .
     } .
 } .
 
 ( _:x) log:onNegativeSurface {
     (_:y) log:onNegativeSurface { 
-   		() log:onNegativeSurface { 
-      		_:y :hasChild _:x.
-      		_:y :is :green .
-   		} .
+       () log:onNegativeSurface { 
+          _:y :hasChild _:x.
+          _:y :is :green .
+       } .
     } .
    
     () log:onNegativeSurface { 
-    	_:x :is :green .
+       _:x :is :green .
     } .
 } .
 
-
 # negated consequence to produce a contradiction
 () log:onNegativeSurface {
-	(_:x) log:onNegativeSurface {
-   		_:x :is :green.
-   		() log:onNegativeSurface {_:x :is :happy} .
-	} .
+   (_:x) log:onNegativeSurface {
+      _:x :is :green.
+      () log:onNegativeSurface {_:x :is :happy} .
+   } .
 } .
