@@ -26,7 +26,7 @@
         "timeout": "10"
     },
     "retina": {
-        "path": "$HOME/github.com/KNowledgeOnWebScale/retina/retin3s",
+        "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/retina/retin",
         "args": "",
         "timeout": "10"
     }
