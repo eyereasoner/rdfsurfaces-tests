@@ -140,11 +140,11 @@ async function run_tests(lib,reasoner, testFile) {
     console.log(`Results (${lib}): ${GREEN}${ok} OK${NORMAL}, ${RED}${incomplete} INCOMPLETE${NORMAL}, ${RED}${lie} LIES${NORMAL}, ${PINK}${timeout} TIMEOUT${NORMAL}, ${GREY}${skipped} SKIPPED${NORMAL}, ${other} OTHER`);
 
     console.log(`
- OK : test returned ':test :is true' 
- INCOMPLETE : test didn't return the ':test :is true'
- LIES : test returned ':test :is true' or contradiction when it shouldn't
+ OK : test returned the expected ':test :is true'/contradiction
+ INCOMPLETE : test did not provide an answer
+ LIES : test returned ':test :is true'/contradiction when it shouldn't
  TIMEOUT : test timeout without any results
- SKIPPED : test couldn't be run for some reason
+ SKIPPED : test skipped by reasoner
  OTHER : reasoner crashed
 `);
     if (incomplete || lie || timeout || other) {
