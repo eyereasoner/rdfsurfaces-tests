@@ -4,6 +4,10 @@
 # (A & B) v (A & C)
 # leads to A
 
+## Assume A & B . This leads to A is true
+## Assume A & C . This leads to A is true
+## Eliminate the disjunction because each option makes A true
+
 () log:onNegativeSurface {
     () log:onNegativeSurface {
         :test :is true .
