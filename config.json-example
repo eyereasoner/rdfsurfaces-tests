@@ -13,7 +13,7 @@
     "tension": {
         "path": "node",
         "args": "$HOME/github.com/joachimvh/tension.js/bin/tension.js -f",
-        "timeout": "10"
+        "timeout": "15"
     },
     "latar": {
         "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/Latar/latar",
