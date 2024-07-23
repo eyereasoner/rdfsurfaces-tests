@@ -12,7 +12,7 @@
     },
     "tension": {
         "path": "node",
-        "args": "$HOME/github.com/joachimvh/tension.js/bin/tension.js -f",
+        "args": "$HOME/github.com/joachimvh/tension.js/bin/tension.js -s 0 -f",
         "timeout": "10"
     },
     "latar": {
