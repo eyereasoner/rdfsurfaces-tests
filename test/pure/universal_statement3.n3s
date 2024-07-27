@@ -2,21 +2,13 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 # From 
-#  \forall x: x is Perfect 
+#  \forall x: x is true
 # Follows:
-#  bob is Perfect 
+#  test is true
 
 (_:X) log:onNegativeSurface {
     () log:onNegativeSurface {
-        _:X :is :Perfect .
-    } .
-} .
-
-() log:onNegativeSurface {
-    :bob :is :Perfect .
-
-    () log:onNegativeSurface {
-        :test :is true .
+        _:X :is true .
     } .
 } .
 
