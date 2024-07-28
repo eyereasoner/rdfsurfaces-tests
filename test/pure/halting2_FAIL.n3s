@@ -26,5 +26,4 @@
     _:S7 :child _:S8 .
     _:S8 :child _:S9 .  
     _:S9 a :Test .
-    () log:onNegativeSurface false.
 }.
