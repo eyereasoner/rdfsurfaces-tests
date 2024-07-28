@@ -16,7 +16,7 @@
 
 # But provide a condition when the loop could generate a result
 (_:S0 _:S1 _:S2 _:S3 _:S4 _:S5 _:S6 _:S7 _:S8 _:S9) log:onNegativeSurface {
-    _:SO a :Test .
+    _:S0 a :Test .
     _:S0 :child _:S1 .
     _:S1 :child _:S2 .
     _:S2 :child _:S3 .
