@@ -5,10 +5,11 @@
 :T1 a :Test .
 
 # Generate an endless loop...
-(_:A _:B) log:onNegativeSurface {
+# _:B is an existential quantified variable
+(_:A) log:onNegativeSurface {
     _:A a :Test .
 
-    () log:onNegativeSurface {
+    (_:B) log:onNegativeSurface {
         _:B a :Test .
         _:A :child _:B .
     }.
