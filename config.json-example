@@ -28,6 +28,6 @@
     "retina": {
         "path": "timeout 15s $HOME/github.com/KNowledgeOnWebScale/retina/retinae",
         "args": "",
-        "timeout": "15"
+        "timeout": "10"
     }
 }
