@@ -2,9 +2,9 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 
 # From 
-#  \forall x: ~(x is Perfect) 
+#  \forall x: ~(x is Perfect) & ( bob is Perfect v test is true )
 # Follows:
-#  ~(bob is Perfect) 
+#  test is true 
 
 (_:X) log:onNegativeSurface {
     _:X :is :Perfect .
