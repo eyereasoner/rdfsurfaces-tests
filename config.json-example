@@ -6,7 +6,7 @@
         "size" : "10"
     },
     "eye": {
-        "path": "/usr/local/bin/eye",
+        "path": "timeout 10s /usr/local/bin/eye",
         "args": "--nope --no-bnode-relabeling --quiet",
         "timeout": "10"
     },
@@ -26,7 +26,7 @@
         "timeout": "10"
     },
     "retina": {
-        "path": "timeout 15s $HOME/github.com/KNowledgeOnWebScale/retina/retinae",
+        "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/retina/retinae",
         "args": "",
         "timeout": "10"
     }
