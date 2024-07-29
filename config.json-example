@@ -6,7 +6,7 @@
         "size" : "10"
     },
     "eye": {
-        "path": "timeout 10s /usr/local/bin/eye",
+        "path": "timeout 12s /usr/local/bin/eye",
         "args": "--nope --no-bnode-relabeling --quiet",
         "timeout": "10"
     },
@@ -16,17 +16,17 @@
         "timeout": "10"
     },
     "latar": {
-        "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/Latar/latar",
+        "path": "timeout 12s $HOME/github.com/KNowledgeOnWebScale/Latar/latar",
         "args": "",
         "timeout": "10"
     },
     "rs2fol": {
-        "path": "timeout 10s ./script/rs2fol.sh",
+        "path": "timeout 12s ./script/rs2fol.sh",
         "args": "",
         "timeout": "10"
     },
     "retina": {
-        "path": "timeout 10s $HOME/github.com/KNowledgeOnWebScale/retina/retinae",
+        "path": "timeout 12s $HOME/github.com/KNowledgeOnWebScale/retina/retinae",
         "args": "",
         "timeout": "10"
     }
