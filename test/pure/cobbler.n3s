@@ -5,10 +5,10 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#>.
 @prefix : <urn:example:>.
 
-# Some x is a good cobbler
+# some x is a good cobbler
 _:x :is (| :good :Cobbler |).
 
-# is there someone x which is good at some y
+# is there some x which is good at some y
 (_:x _:y) log:onNegativeSurface {
     _:x :is (| :good _:y |).
     () log:onNegativeAnswerSurface {
