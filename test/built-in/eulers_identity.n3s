@@ -95,7 +95,7 @@
 # query
 (_:A _:B _:C _:D) log:onNegativeSurface {
     ((2.718281828459045 0) (0 3.141592653589793)) complex:exponentiation (_:A _:B).
-    ((_:A _:B) (1.0 0.0)) complex:sum (_:C _:D).
+    ((_:A _:B) (1 0)) complex:sum (_:C _:D).
     _:C math:notLessThan -2.0e-16.
     _:C math:lessThan 2.0e-16.
     _:D math:notLessThan -2.0e-16.
