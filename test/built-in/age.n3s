@@ -9,7 +9,7 @@
 
 # is the age of a person above some duration?
 (_:S _:A _:B _:D _:F) log:onNegativeSurface {
-    () log:onNegativeQuestionSurface {
+    () log:onNegativeSurface {
         _:S :ageAbove _:A.
     }.
     _:S :birthDay _:B.

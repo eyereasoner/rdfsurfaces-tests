@@ -10,7 +10,7 @@
 
 # something is more interesting if it is greater
 (_:X _:Y) log:onNegativeSurface {
-    () log:onNegativeQuestionSurface {_:X :moreInterestingThan _:Y}.
+    () log:onNegativeSurface {_:X :moreInterestingThan _:Y}.
     _:X math:greaterThan _:Y.
 }.
 
