@@ -8,9 +8,9 @@
 :patH :birthDay "1944-08-21"^^xsd:date.
 
 # is the age of a person above some duration?
-(_:S _:A _:B _:D _:F) log:onNegativeSurface {
+(_:S _:A _:B _:D _:F _:U) log:onNegativeSurface {
     () log:onNegativeSurface {
-        _:S :ageAbove _:A.
+        _:S :ageAbove (_:A _:U).
     }.
     _:S :birthDay _:B.
     "" time:localTime _:D.
@@ -20,7 +20,7 @@
 
 # query
 () log:onNegativeSurface {
-    :patH :ageAbove "P75Y"^^xsd:duration.
+    :patH :ageAbove ("P75Y"^^xsd:duration :approximated).
     () log:onNegativeAnswerSurface {
         :test :is true.
     }.
