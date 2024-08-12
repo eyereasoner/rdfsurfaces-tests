@@ -80,6 +80,9 @@
   } .
 } .
 
+# declare components
+:cardinalCount a log:Component. 
+
 # Add a counter
 :cardinalCount a log:GraphCounter .
 (_:Graph _:Count _:List _:Scope) log:onNegativeSurface {

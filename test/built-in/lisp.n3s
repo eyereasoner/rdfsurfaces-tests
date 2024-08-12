@@ -3,6 +3,15 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix list: <http://www.w3.org/2000/10/swap/list#> .
 
+# declare components
+:eval a log:Component.
+:quote a log:Component.
+:atom a log:Component.
+:eq a log:Component.
+:car a log:Component.
+:cdr a log:Component.
+:cons a log:Component.
+
 # Small demonstrator of a lispy kind of interpreter in blogic
 # Here you can write a small program
 :Prog1 :value

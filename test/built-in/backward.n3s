@@ -8,6 +8,9 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#>.
 @prefix : <urn:example:>.
 
+# declare components
+:moreInterestingThan a log:Component.
+
 # something is more interesting if it is greater
 (_:X _:Y) log:onNegativeSurface {
     () log:onNegativeSurface {_:X :moreInterestingThan _:Y}.

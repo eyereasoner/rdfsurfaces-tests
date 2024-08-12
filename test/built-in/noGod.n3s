@@ -2,6 +2,9 @@
 @prefix log: <http://www.w3.org/2000/10/swap/log#> .
 @prefix list: <http://www.w3.org/2000/10/swap/list#> .
 
+# declare components
+:cardinalCount a log:Component.
+
 # On the positive surface we introduce a new God. Then we count how 
 # many Gods there are on the implicit surface and if there is just one, 
 # we know we didn't have a God on the original surface.
