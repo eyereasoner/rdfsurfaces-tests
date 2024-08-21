@@ -1,0 +1,50 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix nepo: <http://neptune.aws.com/ontology/airroutes/>.
+@prefix list: <http://www.w3.org/2000/10/swap/list#>.
+@prefix math: <http://www.w3.org/2000/10/swap/math#>.
+@prefix log: <http://www.w3.org/2000/10/swap/log#>.
+@prefix : <urn:example:>.
+
+# get airroutes
+() log:onNegativeSurface {
+    <> log:imports <path-discovery-data.ttl>.
+    () log:onNegativeSurface true.
+}.
+
+# declare components
+:route a log:Component.
+
+# connectivity
+(_:from _:to _:visited _:length _:max) log:onNegativeSurface {
+    () log:onNegativeSurface {
+        (_:from _:to _:visited _:length _:max) :route (_:from _:to).
+    }.
+    _:length math:notGreaterThan _:max.
+    _:from nepo:hasOutboundRouteTo _:to.
+    _:visited list:notMember _:to.
+}.
+
+(_:from _:to _:visited _:length _:max _:route _:via _:newVisited _:newLength _:newRoute) log:onNegativeSurface {
+    () log:onNegativeSurface {
+        (_:from _:to _:visited _:length _:max) :route _:route.
+    }.
+    _:length math:notGreaterThan _:max.
+    _:from nepo:hasOutboundRouteTo _:via.
+    _:visited list:notMember _:via.
+    _:newVisited list:firstRest (_:from _:visited).
+    (_:length 1) math:sum _:newLength.
+    (_:via _:to _:newVisited _:newLength _:max) :route _:newRoute.
+    _:route list:firstRest (_:from _:newRoute).
+}.
+
+# find routes from Manchester-Boston Regional Airport to Helsinki Vantaa Airport with at most 2 stopovers
+(_:source _:destination _:airports _:city _:airport _:route _:scope) log:onNegativeSurface {
+    _:source rdfs:label "Manchester-Boston Regional Airport".
+    _:destination rdfs:label "Helsinki Vantaa Airport".
+    (_:source _:destination () 0 2) :route _:airports.
+    (_:city {_:airports list:member _:airport. _:airport rdfs:label _:city} _:route) log:collectAllIn _:scope.
+    () log:onNegativeAnswerSurface {
+        :discovered :airroute _:route.
+        :test :is true.
+    }.
+}.
