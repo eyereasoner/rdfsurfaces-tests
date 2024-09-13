@@ -23,7 +23,7 @@
 
 # query
 () log:onNegativeSurface {
-    :patH :ageAbove "P75Y"^^xsd:duration.
+    :patH :ageAbove "P80Y"^^xsd:duration.
     () log:onNegativeAnswerSurface {
         :test :is true.
     }.

@@ -6,11 +6,11 @@
 @prefix : <urn:example:>.
 
 # some x is a good cobbler
-_:x :is (| :good :Cobbler |).
+_:x :is (:good :Cobbler).
 
 # is there some x which is good at some y
 (_:x _:y) log:onNegativeSurface {
-    _:x :is (| :good _:y |).
+    _:x :is (:good _:y).
     () log:onNegativeAnswerSurface {
         :test :is true.
     }.
