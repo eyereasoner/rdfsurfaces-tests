@@ -212,8 +212,8 @@ async function run_tests_one(reasoner,filePath) {
     }
 
     if (testPath !== filePath) {
-        fs.unlinkSync(testPath);
-        fs.unlinkSync(`${testPath}.out`);
+       fs.unlinkSync(testPath);
+       fs.unlinkSync(`${testPath}.out`);
     }
 
     return [ ok , incomplete , timeout , lie , skipped , other ];
@@ -243,9 +243,8 @@ async function test_rewriter(filePath) {
         return filePath;
     }
     else if (filePath.endsWith(".trig")) {
-        // TODO this is not working yet
         const result = 
-            await runner(`eye --quiet --nope --pass --trig ${filePath} lib/gsm.n3`,{
+            await runner(`/usr/local/bin/eye --quiet --nope --trig ${filePath} lib/gsm.n3 --pass`,{
                 quiet: true
             });
         fs.writeFileSync("tmp.n3s",result, { encoding: 'utf-8' } );
