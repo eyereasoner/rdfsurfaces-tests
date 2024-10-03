@@ -4,7 +4,7 @@
 const { performance } = require('perf_hooks');
 const path = require('path');
 const fs = require('fs');
-const { error } = require('console');
+const { runner } = require('../lib/process');
 const { IS_OK , IS_INCOMPLETE , IS_TIMEOUT , IS_LIE , IS_SKIPPED , IS_CRASHED } = require('../lib/errors');
 
 const RED = "\x1b[31m";
@@ -159,6 +159,8 @@ async function run_tests_one(reasoner,filePath) {
     let ok = 0, incomplete= 0, timeout = 0, lie = 0, skipped = 0 , other = 0; 
     let type = undefined;
 
+    const testPath = await test_rewriter(filePath);
+
     if (filePath.match(/_SKIP/)) {
         type = `skip`;
     }
@@ -177,7 +179,7 @@ async function run_tests_one(reasoner,filePath) {
 
     try {
         config.type = type;
-        answer = await reasoner(filePath,config);
+        answer = await reasoner(testPath,config);
     }
     catch(e) {
         console.error(e);
@@ -209,6 +211,11 @@ async function run_tests_one(reasoner,filePath) {
         console.log(`Testing ${filePath} ... OTHER`);
     }
 
+    if (testPath !== filePath) {
+        fs.unlinkSync(testPath);
+        fs.unlinkSync(`${testPath}.out`);
+    }
+
     return [ ok , incomplete , timeout , lie , skipped , other ];
 }
 
@@ -228,5 +235,23 @@ function load_library(lib) {
     }
     catch (e) {
         return null;
+    }
+}
+
+async function test_rewriter(filePath) {
+    if (filePath.endsWith(".n3s")) {
+        return filePath;
+    }
+    else if (filePath.endsWith(".trig")) {
+        // TODO this is not working yet
+        const result = 
+            await runner(`eye --quiet --nope --pass --trig ${filePath} lib/gsm.n3`,{
+                quiet: true
+            });
+        fs.writeFileSync("tmp.n3s",result, { encoding: 'utf-8' } );
+        return 'tmp.n3s';
+    }
+    else {
+        return filePath;
     }
 }
