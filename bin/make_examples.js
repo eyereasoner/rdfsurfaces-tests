@@ -212,8 +212,7 @@ async function run_tests_one(reasoner,filePath) {
     }
 
     if (testPath !== filePath) {
-       fs.unlinkSync(testPath);
-       fs.unlinkSync(`${testPath}.out`);
+        fs.unlinkSync(testPath);
     }
 
     return [ ok , incomplete , timeout , lie , skipped , other ];
@@ -243,12 +242,16 @@ async function test_rewriter(filePath) {
         return filePath;
     }
     else if (filePath.endsWith(".trig")) {
-        const result = 
-            await runner(`/usr/local/bin/eye --quiet --nope --trig ${filePath} lib/gsm.n3 --pass`,{
+        const eye = config.eye.path;
+        let result = 
+            await runner(`${eye} --quiet --nope --trig ${filePath} lib/gsm.n3 --pass`,{
                 quiet: true
             });
-        fs.writeFileSync("tmp.n3s",result, { encoding: 'utf-8' } );
-        return 'tmp.n3s';
+        result = `@prefix : <urn:example:>.\n` + result;
+        result = result.replace(/.*log:onNegativeSurface _:.*/gm,'');
+        const outFile = `${filePath}.n3s`;
+        fs.writeFileSync(outFile,result, { encoding: 'utf-8' } );
+        return outFile;
     }
     else {
         return filePath;
