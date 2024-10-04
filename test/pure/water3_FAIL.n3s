@@ -10,7 +10,7 @@
 # water is an inorganic compound
 :water a :InorganicCompound.
 
-# water is a solid or a liquid
+# water is solid or liquid
 (_:A) log:onNegativeSurface {
     _:A a :InorganicCompound.
     () log:onNegativeSurface {
@@ -21,7 +21,7 @@
     }.
 }.
 
-# water is a packaged or a gas
+# water is packaged or gas
 (_:A) log:onNegativeSurface {
     _:A a :InorganicCompound.
     () log:onNegativeSurface {
