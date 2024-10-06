@@ -10,7 +10,7 @@
 # water is an inorganic compound
 :water a :InorganicCompound.
 
-# water is solid or liquid or gas
+# water is solid or liquid
 (_:A) log:onNegativeSurface {
     _:A a :InorganicCompound.
     () log:onNegativeSurface {
@@ -18,6 +18,14 @@
     }.
     () log:onNegativeSurface {
         _:A :is :liquid.
+    }.
+}.
+
+# water is packaged or gas
+(_:A) log:onNegativeSurface {
+    _:A a :InorganicCompound.
+    () log:onNegativeSurface {
+        _:A :is :packaged.
     }.
     () log:onNegativeSurface {
         _:A :is :gas.
@@ -40,11 +48,23 @@
     }.
 }.
 
-# gas things are observable
+# packaged things are not observable
+(_:A) log:onNegativeSurface {
+    _:A :is :packaged.
+    () log:onNegativeSurface {
+        () log:onNegativeSurface {
+            _:A :is :observable.
+        }.
+    }.
+}.
+
+# gas things are not observable
 (_:A) log:onNegativeSurface {
     _:A :is :gas.
     () log:onNegativeSurface {
-        _:A :is :observable.
+        () log:onNegativeSurface {
+            _:A :is :observable.
+        }.
     }.
 }.
 
