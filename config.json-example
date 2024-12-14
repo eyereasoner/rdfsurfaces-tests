@@ -7,7 +7,7 @@
     },
     "eye": {
         "path": "timeout 12s /usr/local/bin/eye",
-        "args": "--nope --no-bnode-relabeling --quiet",
+        "args": "--nope --quiet lib/rdfsurfaces.n3",
         "timeout": "10"
     },
     "tension": {

@@ -1,0 +1,181 @@
+@prefix log: <http://www.w3.org/2000/10/swap/log#>.
+@prefix list: <http://www.w3.org/2000/10/swap/list#>.
+@prefix graph: <http://www.w3.org/2000/10/swap/graph#>.
+@prefix math: <http://www.w3.org/2000/10/swap/math#>.
+@prefix s: <#>.
+
+# simplify negative surfaces
+{
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:removeDuplicates ?B.
+    ?B list:select ({ ?Z log:onNegativeSurface ?H } ?K).
+    ?H graph:list ?M.
+    ?M list:removeDuplicates ?T.
+    ?T list:select ({ ?W log:onNegativeSurface ?O } ?N).
+    ?O graph:list ?D.
+    (?K ?D) list:append ?E.
+    ?C graph:list ?E.
+    ?H graph:findBlanks ?R.
+    (?Z ?R) list:intersection ?X.
+    ?X log:equalTo ().
+    ?O graph:findBlanks ?S.
+    (?W ?S) list:intersection ?Y.
+    (?V ?X ?Y) list:append ?U.
+} => {
+    ?U log:onNegativeSurface ?C.
+}.
+
+{
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:removeDuplicates ?B.
+    ?B list:select ({ ?Z log:onNegativeSurface ?H } ?K).
+    ?H graph:list ?M.
+    ?M list:removeDuplicates ?T.
+    ?T list:select ({ ?W log:onNegativeSurface ?O } ?N).
+    ?K list:length ?I.
+    ?I math:greaterThan 1.
+    ?F graph:list ?N.
+    ?Q list:firstRest ({ () log:onNegativeSurface ?F } ?K).
+    ?C graph:list ?Q.
+    ?H graph:findBlanks ?R.
+    (?Z ?R) list:intersection ?X.
+    ?X log:equalTo ().
+    ?O graph:findBlanks ?S.
+    (?W ?S) list:intersection ?Y.
+    (?V ?X ?Y) list:append ?U.
+} => {
+    ?U log:onNegativeSurface ?C.
+}.
+
+{
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:select ({ () log:onNegativeSurface ?H } ?K).
+    ?H graph:list ?J.
+    ({ ?J list:member ?M } { ?M log:equalTo { () log:onNegativeSurface ?Y } }) log:forAllIn ?SCOPE.
+    ?J list:select ({ () log:onNegativeSurface ?S } ?R).
+    ?N graph:list ?K.
+    (?S ?N) graph:union ?C.
+} => {
+    ?V log:onNegativeSurface ?C.
+}.
+
+# convert negative surfaces to forward rules
+{
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:removeDuplicates ?B.
+    ?B list:notMember { ?A log:onNegativeComponentSurface ?B }.
+    ?B list:notMember { ?A log:onNegativeAnswerSurface ?B }.
+    (?H { ?B list:select ({ ?U log:onNegativeSurface ?H } ?K) } ?E) log:collectAllIn ?SCOPE.
+    (?Q { ?B list:select (?Q ?K). ({ ?Q log:equalTo { ?X log:onNegativeSurface ?Y } } false true) log:ifThenElseIn ?SCOPE } ?F) log:collectAllIn ?SCOPE.
+    ?R graph:list ?F.
+    (?V { ?R => ?E }) graph:negateBlanks ?C.
+} => ?C.
+
+# convert negative surfaces to backward rules
+{
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:removeDuplicates ?B.
+    ?B list:select ({ () log:onNegativeComponentSurface ?H } ?K).
+    ?R graph:list ?K.
+    (?V { ?H <= ?R }) graph:negateBlanks ?C.
+} => ?C.
+
+# convert negative surfaces to queries
+{
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:removeDuplicates ?B.
+    ?B list:select ({ ?U log:onNegativeAnswerSurface ?H } ?K).
+    ?R graph:list ?K.
+    (?V { ?R =^ ?H }) graph:negateBlanks ?C.
+} => ?C.
+
+# resolution A (proof by cases)
+{
+    ?A => ?B.
+    ?B list:select (?C ?D).
+    ?C => ?E.
+    ?E list:isList false.
+    ?G list:firstRest (?E ?D).
+} => {
+    ?A => ?G.
+}.
+
+# resolution B (proof by cases)
+{
+    ?A => ?B.
+    ?B list:select (?C ?D).
+    ?C => ().
+} => {
+    ?A => ?D.
+}.
+
+# resolution C (modus tollens)
+{
+    ?A => ?B.
+    ?B list:isList false.
+    ?B => ().
+} => {
+    ?A => ().
+}.
+
+# rewriting A (factoring)
+{
+    ?A => ?B.
+    ?B list:removeDuplicates (?C).
+} => {
+    ?A => ?C.
+}.
+
+# rewriting B (contrapositive)
+{
+    ?A => ?B.
+    ?B list:select (?C ?D).
+    ({ ?C => () } ?A) graph:union ?E.
+} => {
+    ?E => ?D.
+}.
+
+# rewriting C (contrapositive)
+{
+    ?A => ().
+    ?A graph:list ?B.
+    ?B list:select (?C ?M).
+    ?C log:isBuiltin false.
+    ?E graph:list ?M.
+} => {
+    ?E => {
+        ?C => ().
+    }.
+}.
+
+# inference fuse
+{
+    ?A => ().
+    ?A log:call true.
+} => false.
+
+# support
+{
+    () log:onNegativeSurface {
+        () log:onNegativeSurface ?A.
+    }.
+} <= {
+    ?A log:bound true.
+    ?A log:call true.
+}.
+
+{
+    ?L s:findComponent (?T ?K).
+} <= {
+    ?L list:select ({ () log:onNegativeSurface ?T } ?K).
+    ?T log:equalTo { ?S ?P ?O }.
+    ?K list:notMember { ?A log:onNegativeSurface ?B }.
+    ?K list:notMember { ?A log:onNegativeAnswerSurface ?B }.
+    ?P a log:Component. 1 log:trace ?P.
+}.
