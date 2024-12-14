@@ -67,7 +67,10 @@
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:removeDuplicates ?B.
-    ?B list:notMember { ?A log:onNegativeComponentSurface ?B }.
+    (   { ?B s:findComponent (?H ?K) }
+        false
+        true
+    ) log:ifThenElseIn ?SCOPE.
     ?B list:notMember { ?A log:onNegativeAnswerSurface ?B }.
     (?H { ?B list:select ({ ?U log:onNegativeSurface ?H } ?K) } ?E) log:collectAllIn ?SCOPE.
     (?Q { ?B list:select (?Q ?K). ({ ?Q log:equalTo { ?X log:onNegativeSurface ?Y } } false true) log:ifThenElseIn ?SCOPE } ?F) log:collectAllIn ?SCOPE.
@@ -80,7 +83,7 @@
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:removeDuplicates ?B.
-    ?B list:select ({ () log:onNegativeComponentSurface ?H } ?K).
+    ?B s:findComponent (?H ?K).
     ?R graph:list ?K.
     (?V { ?H <= ?R }) graph:negateBlanks ?C.
 } => ?C.
