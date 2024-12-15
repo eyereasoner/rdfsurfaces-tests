@@ -6,6 +6,7 @@
 
 # simplify negative surfaces
 {
+    s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:removeDuplicates ?B.
@@ -27,6 +28,7 @@
 }.
 
 {
+    s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:removeDuplicates ?B.
@@ -50,6 +52,7 @@
 }.
 
 {
+    s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:select ({ () log:onNegativeSurface ?H } ?K).
@@ -64,6 +67,7 @@
 
 # convert negative surfaces to forward rules
 {
+    s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:removeDuplicates ?B.
@@ -77,6 +81,7 @@
 
 # convert negative surfaces to backward rules
 {
+    s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:removeDuplicates ?B.
@@ -87,6 +92,7 @@
 
 # convert negative surfaces to queries
 {
+    s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
     ?L list:removeDuplicates ?B.
@@ -97,9 +103,14 @@
 
 # resolution A (proof by cases)
 {
+    s:imp log:equalTo s:imp.
     ?A => ?B.
+    ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:select (?C ?D).
-    ?C => ?E.
+    ?C graph:list ?L.
+    ?L list:member ?M.
+    ?M => ?E.
+    ?M graph:notMember { s:imp log:equalTo s:imp }.
     ?E list:isList false.
     ?G list:firstRest (?E ?D).
 } => {
@@ -108,25 +119,35 @@
 
 # resolution B (proof by cases)
 {
+    s:imp log:equalTo s:imp.
     ?A => ?B.
+    ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:select (?C ?D).
-    ?C => ().
+    ?C graph:list ?L.
+    ?L list:member ?M.
+    ?M => ().
+    ?M graph:notMember { s:imp log:equalTo s:imp }.
 } => {
     ?A => ?D.
 }.
 
 # resolution C (modus tollens)
 {
+    s:imp log:equalTo s:imp.
     ?A => ?B.
+    ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:isList false.
     ?B => ().
+    ?B graph:notMember { s:imp log:equalTo s:imp }.
 } => {
     ?A => ().
 }.
 
 # rewriting A (factoring)
 {
+    s:imp log:equalTo s:imp.
     ?A => ?B.
+    ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:removeDuplicates (?C).
 } => {
     ?A => ?C.
@@ -134,16 +155,22 @@
 
 # rewriting B (contrapositive)
 {
+    s:imp log:equalTo s:imp.
     ?A => ?B.
+    ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:select (?C ?D).
-    ({ ?C => () } ?A) graph:union ?E.
+    ?C graph:list ?L.
+    ?L list:member ?M.
+    ({ ?M => () } ?A) graph:union ?E.
 } => {
     ?E => ?D.
 }.
 
 # rewriting C (contrapositive)
 {
+    s:imp log:equalTo s:imp.
     ?A => ().
+    ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?A graph:list ?B.
     ?B list:select (?C ?M).
     ?C log:isBuiltin false.
@@ -156,7 +183,9 @@
 
 # inference fuse
 {
+    s:imp log:equalTo s:imp.
     ?A => ().
+    ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?A log:call true.
 } => false.
 
