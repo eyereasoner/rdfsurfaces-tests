@@ -233,15 +233,6 @@
 
 # support
 {
-    () log:onNegativeSurface {
-        () log:onNegativeSurface ?A.
-    }.
-} <= {
-    ?A log:bound true.
-    ?A log:call true.
-}.
-
-{
     ?L s:findComponent (?T ?K).
 } <= {
     ?L list:select ({ () log:onNegativeSurface ?T } ?K).
