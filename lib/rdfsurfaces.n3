@@ -4,7 +4,7 @@
 @prefix math: <http://www.w3.org/2000/10/swap/math#>.
 @prefix s: <#>.
 
-# simplify negative surfaces
+# simplify negative surfaces A
 {
     s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
@@ -27,6 +27,7 @@
     ?U log:onNegativeSurface ?C.
 }.
 
+# simplify negative surfaces B
 {
     s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
@@ -51,6 +52,7 @@
     ?U log:onNegativeSurface ?C.
 }.
 
+# simplify negative surfaces C
 {
     s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
@@ -65,7 +67,34 @@
     ?V log:onNegativeSurface ?C.
 }.
 
-# convert negative surfaces to forward rules
+# simplify negative surfaces D (disjunctive negative surfaces)
+{
+    s:imp log:equalTo s:imp.
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?Gl.
+    ?Gl list:firstRest ({ ?U log:onNegativeSurface ?H } ?X).
+    ({ ?Gl list:member ?M } { ?M log:equalTo { ?U log:onNegativeSurface ?Y } }) log:forAllIn ?SCOPE.
+    ?H graph:list ?Hl.
+    ?Hl list:member ?Hm.
+    ({ ?Gl list:member { ?U log:onNegativeSurface ?J } } { ?J graph:list ?Jl. ?Jl list:member ?Hm }) log:forAllIn ?SCOPE.
+} => {
+    ?V log:onNegativeSurface { ?U log:onNegativeSurface ?Hm }.
+}.
+
+# convert negative surfaces to forward rules A
+{
+    s:imp log:equalTo s:imp.
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:removeDuplicates ?B.
+    ({ ?B s:findComponent (?H ?K) } false true) log:ifThenElseIn ?SCOPE.
+    ?B list:notMember { ?I log:onNegativeAnswerSurface ?J }.
+    ?B list:select ({ ?U log:onNegativeSurface ?H } ?K).
+    ?R graph:list ?K.
+    (?V { ?R => ?H }) graph:negateBlanks ?C.
+} => ?C.
+
+# convert negative surfaces to forward rules B
 {
     s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
@@ -90,6 +119,22 @@
     (?V { ?H <= ?R }) graph:negateBlanks ?C.
 } => ?C.
 
+# convert negative surfaces to universal statements
+{
+    s:imp log:equalTo s:imp.
+    ?V log:onNegativeSurface ?G.
+    ?V log:notEqualTo ().
+    ?G graph:list (?G).
+    ({ ?G log:equalTo { ?Z log:onNegativeSurface ?H } } true { ?Z log:equalTo (). ?H log:equalTo { () log:onNegativeSurface ?G } }) log:ifThenElseIn ?SCOPE.
+    ?H graph:findBlanks ?R.
+    (?Z ?R) list:intersection ?X.
+    ?H graph:member ?M.
+    ({ ?V log:skolem ?W } { ?X list:member ?W } ?Y) log:collectAllIn ?SCOPE.
+    ?S graph:list ?Y.
+    (?V ?X) list:append ?U.
+    (?U { ?M <= ?S }) graph:negateBlanks ?C.
+} => ?C.
+
 # convert negative surfaces to queries
 {
     s:imp log:equalTo s:imp.
@@ -107,8 +152,7 @@
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:select (?C ?D).
-    ?C graph:list ?L.
-    ?L list:member ?M.
+    ?C graph:member ?M.
     ?M => ?E.
     ?M graph:notMember { s:imp log:equalTo s:imp }.
     ?E list:isList false.
@@ -123,8 +167,7 @@
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:select (?C ?D).
-    ?C graph:list ?L.
-    ?L list:member ?M.
+    ?C graph:member ?M.
     ?M => ().
     ?M graph:notMember { s:imp log:equalTo s:imp }.
 } => {
@@ -159,8 +202,7 @@
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:select (?C ?D).
-    ?C graph:list ?L.
-    ?L list:member ?M.
+    ?C graph:member ?M.
     ({ ?M => () } ?A) graph:union ?E.
 } => {
     ?E => ?D.
