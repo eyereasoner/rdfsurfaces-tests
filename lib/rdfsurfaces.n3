@@ -94,8 +94,11 @@
     ({ ?B s:findComponent (?H ?K) } false true) log:ifThenElseIn ?SCOPE.
     ?B list:notMember { ?I log:onNegativeAnswerSurface ?J }.
     ?B list:select ({ ?U log:onNegativeSurface ?H } ?K).
-    ?R graph:list ?K.
-    (?V { ?R => ?H }) graph:negateBlanks ?C.
+    ({ ?V log:skolem ?W } { ?U list:member ?W } ?Y) log:collectAllIn ?SCOPE.
+    (?K ?Y) list:append ?M.
+    ?R graph:list ?M.
+    (?V ?U) list:append ?X.
+    (?X { ?R => ?H }) graph:negateBlanks ?C.
 } => ?C.
 
 # convert negative surfaces to forward rules B
