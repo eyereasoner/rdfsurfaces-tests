@@ -85,6 +85,36 @@
     ?V log:onNegativeSurface { ?U log:onNegativeSurface ?Hm }.
 }.
 
+# simplify negative surfaces E (binary disjunction)
+{
+    s:imp log:equalTo s:imp.
+    () log:onNegativeSurface { () log:onNegativeSurface ?G1. () log:onNegativeSurface ?G2 }.
+    ?G1 graph:list (?T1).
+    ?G2 graph:list (?T2).
+    ?T1 log:equalTo { ?S1 ?P ?O }.
+    ?T2 log:equalTo { ?S2 ?P ?O }.
+} => {
+    ?S ?P ?O.
+}.
+
+# simplify negative surfaces F (negative answer surfaces)
+{
+    s:imp log:equalTo s:imp.
+    ?V log:onNegativeSurface ?G.
+    ?G graph:list ?L.
+    ?L list:removeDuplicates ?B.
+    ?B list:member { ?X log:onNegativeAnswerSurface ?Y }.
+    ?B list:select ({ ?Z log:onNegativeSurface ?H } ?K).
+    ?H graph:list ?M.
+    ?M list:removeDuplicates ?J.
+    ?J list:select (?Q ?T).
+    ?R graph:list ?T.
+    ?N list:firstRest ({ ?Z log:onNegativeSurface ?R } ?K).
+    ?S graph:list ?N.
+} => {
+    ?V log:onNegativeSurface ?S.
+}.
+
 # convert negative surfaces to forward rules A
 {
     s:imp log:equalTo s:imp.
