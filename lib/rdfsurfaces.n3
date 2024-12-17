@@ -18,9 +18,17 @@
     ?H graph:list ?M.
     ?M list:removeDuplicates ?T.
     ?T list:select ({ ?W log:onNegativeSurface ?O } ?N).
-    ?O graph:list ?D.
-    (?K ?D) list:append ?E.
-    ?C graph:list ?E.
+    {
+        ?O graph:list ?D.
+        (?K ?D) list:append ?E.
+        ?C graph:list ?E.
+    } log:callWithDisjunction {
+        ?K list:length ?I.
+        ?I math:greaterThan 1.
+        ?F graph:list ?N.
+        ?Q list:firstRest ({ () log:onNegativeSurface ?F } ?K).
+        ?C graph:list ?Q.
+    }.
     ?H graph:findBlanks ?R.
     (?Z ?R) list:intersection ?X.
     ?X log:equalTo ().
@@ -36,31 +44,6 @@
     s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
     ?G graph:list ?L.
-    ?L list:removeDuplicates ?B.
-    ?B list:select ({ ?Z log:onNegativeSurface ?H } ?K).
-    ?H graph:list ?M.
-    ?M list:removeDuplicates ?T.
-    ?T list:select ({ ?W log:onNegativeSurface ?O } ?N).
-    ?K list:length ?I.
-    ?I math:greaterThan 1.
-    ?F graph:list ?N.
-    ?Q list:firstRest ({ () log:onNegativeSurface ?F } ?K).
-    ?C graph:list ?Q.
-    ?H graph:findBlanks ?R.
-    (?Z ?R) list:intersection ?X.
-    ?X log:equalTo ().
-    ?O graph:findBlanks ?S.
-    (?W ?S) list:intersection ?Y.
-    (?V ?X ?Y) list:append ?U.
-} => {
-    ?U log:onNegativeSurface ?C.
-}.
-
-# simplify negative surfaces C
-{
-    s:imp log:equalTo s:imp.
-    ?V log:onNegativeSurface ?G.
-    ?G graph:list ?L.
     ?L list:select ({ () log:onNegativeSurface ?H } ?K).
     ?H graph:list ?J.
     ({ ?J list:member ?M } { ?M log:equalTo { () log:onNegativeSurface ?Y } }) log:forAllIn ?SCOPE.
@@ -71,7 +54,7 @@
     ?V log:onNegativeSurface ?C.
 }.
 
-# simplify negative surfaces D (disjunctive negative surfaces)
+# simplify disjunctive negative surfaces
 {
     s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
@@ -85,7 +68,7 @@
     ?V log:onNegativeSurface { ?U log:onNegativeSurface ?Hm }.
 }.
 
-# simplify negative surfaces E (binary disjunction)
+# simplify binary disjunction
 {
     s:imp log:equalTo s:imp.
     () log:onNegativeSurface { () log:onNegativeSurface ?G1. () log:onNegativeSurface ?G2 }.
@@ -97,7 +80,7 @@
     ?S ?P ?O.
 }.
 
-# simplify negative surfaces F (negative answer surfaces)
+# simplify negative answer surfaces
 {
     s:imp log:equalTo s:imp.
     ?V log:onNegativeSurface ?G.
@@ -186,8 +169,10 @@
 # resolution A (proof by cases)
 {
     s:imp log:equalTo s:imp.
+    ({ ?X a log:Component } false true) log:ifThenElseIn ?SCOPE.
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
+    ?B list:isList true.
     ?B list:select (?C ?D).
     ?C graph:member ?M.
     ?M => ?E.
@@ -201,8 +186,10 @@
 # resolution B (proof by cases)
 {
     s:imp log:equalTo s:imp.
+    ({ ?X a log:Component } false true) log:ifThenElseIn ?SCOPE.
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
+    ?B list:isList true.
     ?B list:select (?C ?D).
     ?C graph:member ?M.
     ?M => ().
@@ -214,11 +201,17 @@
 # resolution C (modus tollens)
 {
     s:imp log:equalTo s:imp.
+    ({ ?X a log:Component } false true) log:ifThenElseIn ?SCOPE.
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
     ?B list:isList false.
-    ?B => ().
-    ?B graph:notMember { s:imp log:equalTo s:imp }.
+    {
+        ?B => ().
+        ?B graph:notMember { s:imp log:equalTo s:imp }.
+    } log:callWithDisjunction {
+        (?A ?B ) graph:union ?C.
+        ?C => ().
+    }.
 } => {
     ?A => ().
 }.
@@ -228,6 +221,7 @@
     s:imp log:equalTo s:imp.
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
+    ?B list:isList true.
     ?B list:removeDuplicates (?C).
 } => {
     ?A => ?C.
@@ -238,6 +232,7 @@
     s:imp log:equalTo s:imp.
     ?A => ?B.
     ?A graph:notMember { s:imp log:equalTo s:imp }.
+    ?B list:isList true.
     ?B list:select (?C ?D).
     ?C graph:member ?M.
     ({ ?M => () } ?A) graph:union ?E.

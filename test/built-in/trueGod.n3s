@@ -6,8 +6,8 @@
 
 # On the positive surface we introduce a 'True God'. Any god that is
 # different from this 'True God' is a 'False God'.
-(_:x) log:onNegativeSurface {
-   () log:onNegativeSurface {
+#(_:x) log:onNegativeSurface {
+#   () log:onNegativeSurface {
     _:x a :God .
 
     (_:y) log:onNegativeSurface { 
@@ -29,8 +29,8 @@
             _:y a :FalseGod .
         } .
     } .
-   }.
-} .
+#   }.
+#} .
 
 (_:S _:O) log:onNegativeSurface {
     _:S a _:O .
