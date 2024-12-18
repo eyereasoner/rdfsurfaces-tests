@@ -7,7 +7,7 @@
     },
     "eye": {
         "path": "timeout 12s /usr/local/bin/eye",
-        "args": "--nope --quiet lib/rdfsurfaces.n3",
+        "args": "--nope --quiet",
         "timeout": "10"
     },
     "tension": {
