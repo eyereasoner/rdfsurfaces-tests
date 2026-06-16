@@ -29,5 +29,10 @@
         "path": "timeout 12s $HOME/github.com/KNowledgeOnWebScale/retina/retinae",
         "args": "",
         "timeout": "10"
+    },
+    "juliett": {
+        "path": "timeout 10s ./script/juliett.sh",
+        "args": "",
+        "timeout": "10"
     }
 }
