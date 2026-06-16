@@ -43,14 +43,14 @@
 (_:A) log:onNegativeSurface {
     _:A :path :nantes.
     () log:onNegativeSurface {
-        :test :is :true.
+        :test :is true.
     }.
 }.
 
 # query
 (_:A) log:onNegativeSurface {
-    :test :is :true.
+    :test :is true.
     () log:onNegativeAnswerSurface {
-        :test :is :true.
+        :test :is true.
     }.
 }.
