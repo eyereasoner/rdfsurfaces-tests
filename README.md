@@ -6,11 +6,11 @@ A test kit for [RDF Surfaces](https://w3c-cg.github.io/rdfsurfaces/).
 
 Needs at least an installation of one of the RDF Surfaces implementations:
 
-- [EYE](https://github.com/eyereasoner/eye)
-- [Latar](https://github.com/KNowledgeOnWebScale/Latar)
-- [tension.js](https://github.com/joachimvh/tension.js)
-- [rs2fol](https://github.com/RebekkaMa/rs2fol)
-- [juliett](https://codeberg.org/phochste/juliett)
+- [EYE](https://github.com/eyereasoner/eye) (v11.4.6 (2025-01-13))
+- [Latar](https://github.com/KNowledgeOnWebScale/Latar) (2f0d24c0960ba4682bc63d4206e24352aee676eb)
+- [tension.js](https://github.com/joachimvh/tension.js) (0.1.0)
+- [rs2fol](https://github.com/RebekkaMa/rs2fol) (01791c7d1d09381c0dcff0c78b6edb47d3704ad1)
+- [juliett](https://codeberg.org/phochste/juliett) (c9d544a)
 
 Edit the configuration file:
 
