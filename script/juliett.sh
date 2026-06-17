@@ -7,13 +7,13 @@ if [ "${FILE}" == "" ]; then
    exit 1
 fi
 
-RES=$(juliett --check-consistency ${FILE} 2>/dev/null)
+RES=$(juliett --herbrand --una --check-consistency ${FILE} 2>/dev/null)
 
 if [[ $RES =~ INCONSISTENT ]]; then
     exit "Refutation found"
 fi
 
-RES=$(juliett --entails ./script/juliett-goal.n3 ${FILE})
+RES=$(juliett --herbrand --una --entails ./script/juliett-goal.n3 ${FILE})
 
 if [[ $RES == ENTAILED* ]]; then
     cat ./script/juliett-goal.n3

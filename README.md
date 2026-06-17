@@ -10,7 +10,7 @@ Needs at least an installation of one of the RDF Surfaces implementations:
 - [Latar](https://github.com/KNowledgeOnWebScale/Latar) (2f0d24c0960ba4682bc63d4206e24352aee676eb)
 - [tension.js](https://github.com/joachimvh/tension.js) (0.1.0)
 - [rs2fol](https://github.com/RebekkaMa/rs2fol) (01791c7d1d09381c0dcff0c78b6edb47d3704ad1)
-- [juliett](https://codeberg.org/phochste/juliett) (c9d544a)
+- [juliett](https://codeberg.org/phochste/juliett) (v0.18.0-20)
 
 Edit the configuration file:
 
