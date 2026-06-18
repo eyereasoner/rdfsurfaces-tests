@@ -31,8 +31,8 @@
         "timeout": "10"
     },
     "juliett": {
-        "path": "timeout 10s ./script/juliett.sh",
+        "path": "timeout 20s ./script/juliett.sh",
         "args": "",
-        "timeout": "10"
+        "timeout": "20"
     }
 }
